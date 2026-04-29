@@ -31,41 +31,28 @@
     [{"@context":"https://schema.org","@type":"ProfessionalService","name":"وكالة روّج.برو للتسويق الرقمي","alternateName":"Rawj Pro","url":"https://rawj.pro/","logo":{"@type":"ImageObject","url":"https://rawj.pro/logo.webp"},"description":"وكالة تسويق أداء متخصصة في المتاجر الإلكترونية بالسعودية — إدارة إعلانات سناب وإنستقرام وتيك توك وجوجل، رفع ROAS، وتخفيض تكلفة الاستحواذ لمتاجر سلة وزد.","address":{"@type":"PostalAddress","addressCountry":"SA"},"contactPoint":{"@type":"ContactPoint","telephone":"+966583024943","contactType":"customer service","areaServed":"SA","availableLanguage":"Arabic"},"sameAs":["https://x.com/rawjpro","https://www.tiktok.com/@rawj.pro","https://www.instagram.com/rawj.pro/","https://www.linkedin.com/company/rawjpro"]},{"@context":"https://schema.org","@type":"WebSite","name":"وكالة روّج.برو","url":"https://rawj.pro/","inLanguage":"ar-SA"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"متى أبدأ أشوف نتيجة إعلانات متجري؟","acceptedAnswer":{"@type":"Answer","text":"أغلب عملائنا يحسون بفرق واضح في مبيعاتهم بين الأسبوع الثالث والرابع بعد ضبط الحملات."}},{"@type":"Question","name":"كم الميزانية الإعلانية المناسبة لمتجري الإلكتروني؟","acceptedAnswer":{"@type":"Answer","text":"يعتمد على مجالك والمنصة — سناب أو إنستقرام أو جوجل. نوجهك للميزانية الصح في جلسة الاستشارة المجانية."}},{"@type":"Question","name":"هل تشتغلون مع متاجر سلة وزد؟","acceptedAnswer":{"@type":"Answer","text":"أكيد. نرتب الأساس من البداية للمتاجر على سلة وزد: تتبع صحيح وصفحة منتج قوية وحملات إعلانية مبنية صح."}}]}]
     </script>
 
-    <!-- DNS prefetch لتسريع الاتصال بالخدمات الخارجية -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://connect.facebook.net">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-
-    <!-- Preconnect للموارد الحرجة فقط -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <!--
-        CLS FIX: display=optional بدل display=swap
-        المعنى: لو الفونت ما لحقش يحمل في أول رسم، يستخدم الفونت الافتراضي ولا يعوضه لاحقاً
-        بدل: فونت يتحمل بعدين، النص يتحرك = CLS عالي
-        النتيجة: CLS ينزل من 0.207 إلى قريب 0
-    -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=optional" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=optional"></noscript>
-
-    <!-- تحميل مسبق لصورة LCP -->
     <link rel="preload" as="image" href="img4.webp" fetchpriority="high">
     <link rel="icon" type="image/webp" href="smalll.webp">
     <link rel="apple-touch-icon" href="smalll.webp">
-
-    <!-- GTM: تهيئة dataLayer فقط هنا (خفيف جداً) -->
     <script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});</script>
-    <!-- GA4 config مسبقاً حتى لا ننتظر تحميل السكريبت -->
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-0LG3HLGERN');</script>
 
 <style>
 :root{--dark:#15162d;--darker:#0a0b16;--purple:#8e2b6b;--pink:#d150a2;--bg:#f8f9fa;--white:#ffffff;--muted:#b8c2cc;--border:#eaecef;--green:#2ecc71;--amber:#f59e0b;--r:0.3s ease}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
-body{font-family:'Tajawal',Arial,sans-serif;background:var(--white);color:var(--dark);line-height:1.8;text-align:right;overflow-x:hidden}
+
+/* FIX 4: إضافة will-change للعناصر المتحركة فقط أثناء الـ hover وإزالة content-visibility اللي بيسبب الجلط */
+body{font-family:'Tajawal',Arial,sans-serif;background:var(--white);color:var(--dark);line-height:1.8;text-align:right;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 img{max-width:100%;display:block;height:auto}
 a{text-decoration:none}
 .skip{position:absolute;top:-999px;right:0;background:var(--purple);color:#fff;padding:10px 20px;z-index:9999;font-weight:700;border-radius:0 0 8px 8px}
@@ -78,13 +65,16 @@ nav a:hover{color:var(--purple)}
 .nav-btn{border:2px solid var(--purple);color:var(--purple);padding:9px 22px;border-radius:7px;font-weight:800;transition:var(--r)}
 .nav-btn:hover{background:var(--purple);color:#fff}
 .hdr-wa{display:none;align-items:center;gap:7px;background:var(--purple);color:#fff;padding:10px 16px;border-radius:8px;font-size:0.9rem;font-weight:800;border:none;white-space:nowrap}
-.btn-p{background:linear-gradient(90deg,var(--purple),var(--pink));color:#fff;padding:16px 34px;border-radius:9px;font-size:1.05rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:none;cursor:pointer;box-shadow:0 10px 28px rgba(142,43,107,0.35);transition:0.35s;font-family:'Tajawal',sans-serif;line-height:1.4}
+.btn-p{background:linear-gradient(90deg,var(--purple),var(--pink));color:#fff;padding:16px 34px;border-radius:9px;font-size:1.05rem;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:none;cursor:pointer;box-shadow:0 10px 28px rgba(142,43,107,0.35);transition:transform 0.35s,box-shadow 0.35s;font-family:'Tajawal',sans-serif;line-height:1.4;backface-visibility:hidden}
 .btn-p:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(209,80,162,0.5);color:#fff}
 .btn-p svg{width:18px;height:18px;fill:#fff;flex-shrink:0}
-.btn-o{background:transparent;color:#fff;padding:15px 28px;border-radius:9px;font-size:1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:2px solid rgba(255,255,255,0.3);cursor:pointer;transition:var(--r);font-family:'Tajawal',sans-serif}
+.btn-o{background:transparent;color:#fff;padding:15px 28px;border-radius:9px;font-size:1rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:2px solid rgba(255,255,255,0.3);cursor:pointer;transition:border-color var(--r);font-family:'Tajawal',sans-serif}
 .btn-o:hover{border-color:rgba(255,255,255,0.7);color:#fff}
 .hero{position:relative;display:flex;align-items:center;justify-content:space-between;gap:40px;padding:90px 5%;background:linear-gradient(135deg,var(--dark) 0%,#1e133d 100%);color:#fff;min-height:88vh;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
+/* FIX 2: إعادة تفعيل الـ grid pattern - كان مخفي على الموبايل */
+.hero-grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+
 .hero-content{position:relative;z-index:2;width:50%}
 .hero-img-wrap{position:relative;z-index:2;width:46%}
 .hero-img-wrap img{width:100%;border-radius:16px;box-shadow:0 25px 60px rgba(0,0,0,0.5);aspect-ratio:4/3;object-fit:cover;border:2px solid rgba(255,255,255,0.1)}
@@ -93,41 +83,49 @@ nav a:hover{color:var(--purple)}
 .hero h1 span{background:linear-gradient(90deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;font-size:2.2rem}
 .hero-desc{font-size:1.12rem;color:#c5d0dc;margin-bottom:32px;line-height:1.9}
 .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+
+/* FIX 1: أفاتار الناس - تصميم احترافي بأيقونات راجل وست */
 .hero-proof{display:flex;align-items:center;gap:10px;margin-top:24px;color:#8fa3b8;font-size:0.88rem}
 .avatars{display:flex}
-.avatars span{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--pink));border:2px solid rgba(255,255,255,0.25);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:#fff}
+.avatars .av{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,0.25);margin-left:-9px;overflow:hidden;background:linear-gradient(135deg,var(--purple),var(--pink));flex-shrink:0}
+.avatars .av svg{width:100%;height:100%}
+
 .sec{padding:80px 5%}
 .sec-sm{padding:55px 5%}
 .ttl{font-size:2.3rem;font-weight:900;text-align:center;color:var(--dark);line-height:1.4;margin-bottom:14px}
 .sub{font-size:1.08rem;color:#555;line-height:1.9;text-align:center;max-width:660px;margin:0 auto 50px}
 .pain-bg{background:var(--bg)}
 .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.pain-card{background:#fff;padding:36px 32px;border-radius:16px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,0.03);transition:var(--r);position:relative;overflow:hidden}
+
+/* FIX 5: Pain cards بأيقونات SVG احترافية بدل الإيموجي */
+.pain-card{background:#fff;padding:36px 32px;border-radius:16px;border:1px solid var(--border);box-shadow:0 4px 20px rgba(0,0,0,0.03);transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;position:relative;overflow:hidden;backface-visibility:hidden}
 .pain-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:linear-gradient(180deg,var(--purple),var(--pink));border-radius:0 16px 16px 0;transition:height 0.4s}
 .pain-card:hover{transform:translateY(-5px);border-color:rgba(142,43,107,0.2);box-shadow:0 14px 36px rgba(142,43,107,0.09)}
 .pain-card:hover::before{height:100%}
-.pain-card .ic{font-size:2.2rem;margin-bottom:16px;display:block}
+.pain-card .ic-wrap{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,rgba(142,43,107,0.1),rgba(209,80,162,0.12));display:flex;align-items:center;justify-content:center;margin-bottom:18px;border:1px solid rgba(142,43,107,0.12)}
+.pain-card .ic-wrap svg{width:26px;height:26px}
 .pain-card h3{font-size:1.18rem;font-weight:800;margin-bottom:10px}
 .pain-card p{color:#555;font-size:0.96rem;line-height:1.8}
+
 .num-bg{background:var(--dark);color:#fff;position:relative;overflow:hidden}
 .num-bg::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
 .num-bg .ttl{color:#fff;position:relative;z-index:1}
 .num-bg .sub{color:#8fa3b8;position:relative;z-index:1}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;position:relative;z-index:1}
-.stat-card{padding:40px 24px;background:rgba(255,255,255,0.03);border-radius:16px;border:1px solid rgba(255,255,255,0.07);transition:var(--r)}
+.stat-card{padding:40px 24px;background:rgba(255,255,255,0.03);border-radius:16px;border:1px solid rgba(255,255,255,0.07);transition:background 0.3s,border-color 0.3s,transform 0.3s;backface-visibility:hidden}
 .stat-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(209,80,162,0.3);transform:translateY(-5px)}
 .stat-num{font-size:3.6rem;font-weight:900;background:linear-gradient(180deg,#fff,#8fa3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:flex;align-items:center;justify-content:center;direction:ltr;line-height:1;margin-bottom:10px}
 .stat-lbl{font-size:0.98rem;color:var(--pink);font-weight:700;line-height:1.5}
 .stat-note{text-align:center;color:rgba(255,255,255,0.3);font-size:0.84rem;margin-top:36px;position:relative;z-index:1}
 .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-.srv-card{background:var(--bg);padding:26px;border-radius:18px;border:1px solid var(--border);transition:0.4s}
+.srv-card{background:var(--bg);padding:26px;border-radius:18px;border:1px solid var(--border);transition:border-color 0.4s,transform 0.4s,box-shadow 0.4s,background 0.4s;backface-visibility:hidden}
 .srv-card:hover{border-color:rgba(142,43,107,0.3);transform:translateY(-8px);box-shadow:0 20px 50px rgba(142,43,107,0.1);background:#fff}
 .srv-card img{width:100%;height:175px;object-fit:cover;border-radius:10px;margin-bottom:20px}
 .srv-card h3{color:var(--purple);font-size:1.2rem;font-weight:800;margin-bottom:8px}
 .srv-card p{color:#555;font-size:0.94rem;line-height:1.8}
 .reviews-bg{background:var(--bg);border-top:1px solid var(--border)}
 .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:1200px;margin:0 auto}
-.t-card{background:#fff;border-radius:18px;border:1px solid var(--border);padding:28px 26px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:0;transition:var(--r);position:relative;overflow:hidden}
+.t-card{background:#fff;border-radius:18px;border:1px solid var(--border);padding:28px 26px 22px;box-shadow:0 4px 20px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:0;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;position:relative;overflow:hidden;backface-visibility:hidden}
 .t-card::after{content:'';position:absolute;top:0;right:0;width:3px;height:0;background:linear-gradient(180deg,var(--purple),var(--pink));border-radius:0 18px 18px 0;transition:height 0.4s ease}
 .t-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(142,43,107,0.1);border-color:rgba(142,43,107,0.2)}
 .t-card:hover::after{height:100%}
@@ -138,18 +136,17 @@ nav a:hover{color:var(--purple)}
 .t-card-footer{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--border)}
 .t-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(142,43,107,0.15)}
 .t-card-info{flex:1}
-/* FIX heading order: استخدم p بدل h4 لأسماء الأشخاص في التيستيمونيالز */
 .t-card-name{font-size:0.95rem;font-weight:800;color:var(--dark);margin-bottom:2px;line-height:1.3}
 .t-card-info span{font-size:0.79rem;color:#888;display:block;line-height:1.4}
 .par-sec{background:#fff;text-align:center;padding:55px 5%;border-top:1px solid var(--border)}
 .par-lbl{font-size:0.84rem;color:#aaa;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:36px}
 .par-wrap{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap}
-.par-item{width:100px;height:100px;display:flex;justify-content:center;align-items:center;border-radius:16px;background:var(--bg);border:1px solid var(--border);transition:0.4s;filter:grayscale(100%);opacity:0.6}
+.par-item{width:100px;height:100px;display:flex;justify-content:center;align-items:center;border-radius:16px;background:var(--bg);border:1px solid var(--border);transition:transform 0.4s,filter 0.4s,opacity 0.4s,border-color 0.4s,box-shadow 0.4s;filter:grayscale(100%);opacity:0.6}
 .par-item img{max-width:56%;max-height:56%;object-fit:contain}
 .par-item:hover,.par-item.lit{transform:scale(1.12) translateY(-3px);filter:grayscale(0%);opacity:1;border-color:rgba(142,43,107,0.25);box-shadow:0 12px 28px rgba(142,43,107,0.1);background:#fff}
 .proc-bg{background:#fff;border-top:1px solid var(--border)}
 .proc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
-.proc-step{background:var(--bg);padding:44px 28px;border-radius:16px;border:1px solid var(--border);transition:var(--r)}
+.proc-step{background:var(--bg);padding:44px 28px;border-radius:16px;border:1px solid var(--border);transition:border-color 0.3s,background 0.3s,box-shadow 0.3s,transform 0.3s;backface-visibility:hidden}
 .proc-step:hover{border-color:rgba(142,43,107,0.3);background:#fff;box-shadow:0 14px 36px rgba(142,43,107,0.08);transform:translateY(-5px)}
 .step-n{display:inline-block;width:36px;height:36px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border-radius:50%;font-weight:900;font-size:0.95rem;line-height:36px;margin-bottom:14px}
 .step-ico{font-size:2.4rem;display:block;margin-bottom:12px}
@@ -157,7 +154,7 @@ nav a:hover{color:var(--purple)}
 .proc-step p{color:#555;font-size:0.94rem;line-height:1.8}
 .faq-bg{background:var(--bg);border-top:1px solid var(--border)}
 .faq-wrap{max-width:760px;margin:0 auto}
-.faq-row{background:#fff;margin-bottom:10px;border-radius:12px;border:1px solid var(--border);overflow:hidden;transition:var(--r)}
+.faq-row{background:#fff;margin-bottom:10px;border-radius:12px;border:1px solid var(--border);overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s}
 .faq-q{width:100%;padding:20px 22px;background:none;border:none;font-family:'Tajawal',sans-serif;font-size:1.08rem;font-weight:700;color:var(--dark);text-align:right;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;line-height:1.5}
 .faq-q span{font-size:1.3rem;color:var(--purple);transition:transform 0.35s;flex-shrink:0}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease-out}
@@ -176,7 +173,7 @@ nav a:hover{color:var(--purple)}
 .fg{margin-bottom:20px;text-align:right}
 .fg label{display:block;margin-bottom:7px;color:rgba(255,255,255,0.85);font-weight:700;font-size:0.9rem}
 .fg .opt{font-size:0.8rem;color:var(--muted);font-weight:400}
-input,select,textarea{width:100%;padding:14px 16px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.15);font-family:'Tajawal',sans-serif;font-size:1rem;background:rgba(255,255,255,0.05);color:#fff;transition:var(--r);-webkit-appearance:none}
+input,select,textarea{width:100%;padding:14px 16px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.15);font-family:'Tajawal',sans-serif;font-size:1rem;background:rgba(255,255,255,0.05);color:#fff;transition:border-color var(--r),background var(--r),box-shadow var(--r);-webkit-appearance:none}
 input::placeholder,textarea::placeholder{color:rgba(255,255,255,0.3)}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pink);background:rgba(255,255,255,0.08);box-shadow:0 0 0 3px rgba(209,80,162,0.15)}
 select{cursor:pointer}
@@ -197,22 +194,21 @@ footer{background:var(--darker);color:var(--muted);padding:60px 5% 28px;border-t
 .pay-logo:hover{opacity:1;filter:brightness(1.3) contrast(1)}
 .official-logo{height:36px;width:auto;max-width:110px;object-fit:contain;opacity:0.55;filter:brightness(1.1) contrast(0.85);transition:opacity 0.3s,filter 0.3s;display:block}
 .official-logo:hover{opacity:0.85;filter:brightness(1.2) contrast(1)}
-/* FIX heading order: footer يستخدم h3 بدل h4 */
 .ft-links h3,.ft-social h3{color:#fff;margin-bottom:18px;font-size:1rem;font-weight:800}
 .ft-links ul{list-style:none}
 .ft-links ul li{margin-bottom:10px}
 .ft-links ul li a{color:var(--muted);font-size:0.9rem;transition:color 0.3s}
 .ft-links ul li a:hover{color:var(--pink)}
 .soc-icons{display:flex;gap:10px}
-.soc-icons a{width:40px;height:40px;background:rgba(255,255,255,0.05);border-radius:50%;display:flex;justify-content:center;align-items:center;color:var(--muted);transition:var(--r);border:1px solid rgba(255,255,255,0.08)}
+.soc-icons a{width:40px;height:40px;background:rgba(255,255,255,0.05);border-radius:50%;display:flex;justify-content:center;align-items:center;color:var(--muted);transition:background 0.3s,color 0.3s,transform 0.3s,border-color 0.3s;border:1px solid rgba(255,255,255,0.08)}
 .soc-icons a:hover{background:var(--purple);color:#fff;transform:translateY(-4px);border-color:var(--purple)}
 .soc-icons svg{width:16px;height:16px;fill:currentColor}
 .ft-bottom{max-width:1100px;margin:0 auto;padding-top:22px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .ft-copy{font-size:0.87rem}
 .ft-copy-trust{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .ft-copy-trust span{font-size:0.78rem;color:rgba(255,255,255,0.25);display:flex;align-items:center;gap:5px}
-.wa-btn{position:fixed;bottom:28px;right:28px;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,0.35);z-index:9000;transition:var(--r)}
-.wa-btn::before{content:'تواصل معنا على واتساب';position:absolute;right:66px;background:#fff;color:#333;padding:7px 12px;border-radius:20px;font-family:'Tajawal',sans-serif;font-size:0.86rem;font-weight:700;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,0.12);opacity:0;transform:translateX(8px);transition:all 0.3s;pointer-events:none}
+.wa-btn{position:fixed;bottom:28px;right:28px;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,0.35);z-index:9000;transition:transform 0.3s,background 0.3s}
+.wa-btn::before{content:'تواصل معنا على واتساب';position:absolute;right:66px;background:#fff;color:#333;padding:7px 12px;border-radius:20px;font-family:'Tajawal',sans-serif;font-size:0.86rem;font-weight:700;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,0.12);opacity:0;transform:translateX(8px);transition:opacity 0.3s,transform 0.3s;pointer-events:none}
 .wa-btn:hover::before{opacity:1;transform:translateX(0)}
 .wa-btn:hover{transform:scale(1.1);background:#1ebe57}
 .wa-btn svg{width:28px;height:28px;fill:#fff}
@@ -221,15 +217,12 @@ footer{background:var(--darker);color:var(--muted);padding:60px 5% 28px;border-t
 .sbar-wa{background:#25d366;box-shadow:0 4px 14px rgba(37,211,102,0.3)}
 .sbar-form{background:linear-gradient(90deg,var(--purple),var(--pink));box-shadow:0 4px 14px rgba(142,43,107,0.3)}
 .sbar-wa svg{width:17px;height:17px;fill:#fff}
-.rv{opacity:0;transform:translateY(26px);transition:opacity 0.6s ease,transform 0.6s ease}
-.rv.in{opacity:1;transform:translateY(0)}
 
-/* content-visibility للأقسام خارج نطاق الشاشة */
-.pain-bg,.num-bg,#services,.reviews-bg,.par-sec,.proc-bg,.faq-bg,.form-bg,footer{
-    content-visibility:auto;
-    contain-intrinsic-size:0 600px
-}
+/* FIX 4: تحسين الـ scroll reveal - GPU-accelerated فقط */
+.rv{opacity:0;transform:translate3d(0,26px,0);transition:opacity 0.6s ease,transform 0.6s ease;will-change:opacity,transform}
+.rv.in{opacity:1;transform:translate3d(0,0,0);will-change:auto}
 
+/* ── MOBILE ── */
 @media (max-width:768px){
 body{padding-bottom:72px}
 header{padding:10px 4%;justify-content:center;background:rgba(255,255,255,0.99)}
@@ -237,20 +230,26 @@ nav{display:none}
 .hdr-wa{display:none !important}
 .logo img{max-height:44px}
 .hero{flex-direction:column;padding:0;gap:0;min-height:auto;background:var(--dark)}
-.hero::before{display:none}
 .hero-img-wrap{position:relative;width:100%;height:220px;overflow:hidden;flex-shrink:0}
 .hero-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 25%;border-radius:0;border:none;box-shadow:none;aspect-ratio:unset}
 .hero-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:90px;background:linear-gradient(to bottom,transparent,var(--dark))}
+
+/* FIX 2: الـ grid pattern على الموبايل - مرئي الآن */
+.hero-grid-bg{background-size:32px 32px;opacity:0.7}
+
 .hero-content{position:relative;z-index:2;width:100%;padding:8px 20px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;min-height:auto;justify-content:flex-start}
 .badge{display:none}
 .hero h1{font-size:1.65rem;line-height:1.5;margin-bottom:10px;color:#fff;font-weight:900}
 .hero h1 span{display:inline;font-size:inherit;background:none;-webkit-background-clip:unset;-webkit-text-fill-color:#fff;background-clip:unset;color:#fff;border-bottom:2px solid rgba(209,80,162,0.6);padding-bottom:2px}
 .hero-desc{font-size:0.93rem;color:rgba(255,255,255,0.65);margin-bottom:18px;line-height:1.7}
-.mini-stats{display:flex;gap:0;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:12px;overflow:hidden;margin-bottom:20px;width:100%}
-.mini-stat{flex:1;padding:10px 6px;text-align:center;border-left:1px solid rgba(255,255,255,0.1)}
+
+/* FIX 3: Mini-stats - نفس الـ style بتاع القسم الكبير تحت */
+.mini-stats{display:flex;gap:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:14px;overflow:hidden;margin-bottom:20px;width:100%}
+.mini-stat{flex:1;padding:14px 6px;text-align:center;border-left:1px solid rgba(255,255,255,0.1);position:relative}
 .mini-stat:last-child{border-left:none}
-.mini-stat strong{display:block;font-size:1.3rem;font-weight:900;color:#fff}
-.mini-stat em{font-style:normal;font-size:0.68rem;color:rgba(255,255,255,0.5);display:block;margin-top:2px}
+.mini-stat strong{display:block;font-size:1.55rem;font-weight:900;font-family:'Tajawal',sans-serif;background:linear-gradient(180deg,#ffffff,#c5b8d0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:4px;direction:ltr}
+.mini-stat em{font-style:normal;font-size:0.7rem;color:var(--pink);display:block;font-weight:700;letter-spacing:0.2px}
+
 .hero-ctas{flex-direction:column;gap:0;width:100%}
 .hero-ctas .btn-p{width:100%;padding:17px 20px;font-size:1.03rem}
 .btn-o-desktop-only{display:none !important}
@@ -262,7 +261,8 @@ nav{display:none}
 .pain-grid{grid-template-columns:1fr;gap:12px}
 .pain-card{padding:20px 18px;border-radius:14px}
 .pain-card-inner{display:flex;gap:14px;align-items:flex-start}
-.pain-card .ic{font-size:1.8rem;margin-bottom:0;flex-shrink:0;margin-top:2px}
+.pain-card .ic-wrap{width:44px;height:44px;border-radius:10px;margin-bottom:0;flex-shrink:0;margin-top:2px}
+.pain-card .ic-wrap svg{width:22px;height:22px}
 .pain-card h3{font-size:1rem;margin-bottom:4px}
 .pain-card p{font-size:0.87rem;line-height:1.7}
 .stats-grid{grid-template-columns:repeat(3,1fr);gap:8px}
@@ -286,7 +286,7 @@ nav{display:none}
 .t-card-stars{font-size:0.8rem;margin-bottom:10px}
 .t-card-date{margin-bottom:10px}
 .t-card-footer{padding-top:12px;gap:9px}
-.par-sec{padding:26px 18px;contain-intrinsic-size:0 300px}
+.par-sec{padding:26px 18px}
 .par-wrap{gap:10px;justify-content:center;flex-wrap:wrap}
 .par-item{width:74px;height:74px;border-radius:12px}
 .proc-grid{grid-template-columns:1fr;gap:0}
@@ -327,7 +327,7 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .hero h1{font-size:1.45rem}
 .stat-num{font-size:1.55rem}
 .stat-lbl{font-size:0.63rem}
-.mini-stat strong{font-size:1.1rem}
+.mini-stat strong{font-size:1.25rem}
 .t-card{min-width:240px;max-width:240px}
 }
 </style>
@@ -356,6 +356,9 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 
 <!-- ══════════ HERO ══════════ -->
 <section class="hero" id="hero" aria-label="القسم الرئيسي">
+    <!-- FIX 2: grid background كـ element منفصل بدل ::before - يظهر على الموبايل -->
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+
     <div class="hero-img-wrap">
         <img src="img4.webp"
              alt="نمو مبيعات المتجر الإلكتروني — وكالة روّج.برو لتسويق الأداء"
@@ -373,6 +376,8 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
        نشتغل مع متاجر سلة وزد في السعودية كشريك يساعدك تكبر فعليًا، مو وكالة تاخذ مقدم وتختفي.<br>
 نرفع المبيعات، ونقلل تكلفة الإعلان، ونجيب لك نتائج أفضل على سناب وإنستقرام وتيك توك وجوجل
         </p>
+
+        <!-- FIX 3: Mini-stats بنفس خط وأسلوب القسم الرئيسي -->
         <div class="mini-stats" aria-hidden="true">
             <div class="mini-stat">
                 <strong>+350%</strong>
@@ -387,6 +392,7 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
                 <em>ريال مبيعات</em>
             </div>
         </div>
+
         <div class="hero-ctas">
             <a href="https://wa.me/966583024943?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A8%D8%BA%D9%8A%D8%AA%20%D8%AC%D9%84%D8%B3%D8%A9%20%D8%A7%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%D9%8A%D8%A9%20%D9%85%D8%AC%D8%A7%D9%86%D9%8A%D8%A9%20%D9%84%D9%85%D8%AA%D8%AC%D8%B1%D9%8A."
                class="btn-p" target="_blank" rel="noopener noreferrer" data-event="hero_wa">
@@ -395,11 +401,47 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
             </a>
             <a href="#apply" class="btn-o btn-o-desktop-only" data-event="hero_form">أو أرسل طلبك هنا ↓</a>
         </div>
+
+        <!-- FIX 1: أفاتار احترافية بأيقونات SVG راجل وست -->
         <div class="hero-proof">
-            <div class="avatars">
-                <span aria-hidden="true">م</span>
-                <span aria-hidden="true">ع</span>
-                <span aria-hidden="true">ف</span>
+            <div class="avatars" aria-hidden="true">
+                <!-- راجل -->
+                <div class="av">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="40" r="20" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="20" cy="15" r="7" fill="rgba(255,255,255,0.85)"/>
+                        <path d="M6 38c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="rgba(255,255,255,0.85)"/>
+                    </svg>
+                </div>
+                <!-- ست -->
+                <div class="av" style="background:linear-gradient(135deg,#6b2b8e,#a150d1)">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="40" r="20" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="20" cy="15" r="7" fill="rgba(255,255,255,0.85)"/>
+                        <path d="M6 38c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="rgba(255,255,255,0.85)"/>
+                        <!-- شعر طويل للمرأة -->
+                        <path d="M13 10 Q10 18 11 22" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/>
+                        <path d="M27 10 Q30 18 29 22" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <!-- راجل -->
+                <div class="av" style="background:linear-gradient(135deg,#2b6b8e,#50a1d1)">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="40" r="20" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="20" cy="15" r="7" fill="rgba(255,255,255,0.85)"/>
+                        <path d="M6 38c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="rgba(255,255,255,0.85)"/>
+                    </svg>
+                </div>
+                <!-- ست -->
+                <div class="av" style="background:linear-gradient(135deg,#8e6b2b,#d1a150)">
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="40" r="20" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="20" cy="15" r="7" fill="rgba(255,255,255,0.85)"/>
+                        <path d="M6 38c0-7.7 6.3-14 14-14s14 6.3 14 14" fill="rgba(255,255,255,0.85)"/>
+                        <path d="M13 10 Q10 18 11 22" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/>
+                        <path d="M27 10 Q30 18 29 22" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
             </div>
             <span>+20 متجر سعودي على سلة وزد يثقون في روّج.برو</span>
         </div>
@@ -411,27 +453,60 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     <h2 class="ttl">صارف على إعلانات متجرك وما تشوف فرق؟</h2>
     <p class="sub">ما أنت الوحيد — كثير من أصحاب المتاجر في السعودية يحرقون ميزانيتهم كل شهر على حملات ما تجيب طلبات. هذي أكثر ثلاث مشاكل نشوفها بشكل متكرر.</p>
     <div class="pain-grid">
+
+        <!-- FIX 5: أيقونات SVG احترافية بدل الإيموجي -->
         <div class="pain-card rv">
             <div class="pain-card-inner">
-                <span class="ic" aria-hidden="true">💸</span>
+                <!-- أيقونة صرف ميزانية / نزيف مالي -->
+                <div class="ic-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="rgba(209,80,162,0.12)"/>
+                        <path d="M12 6v12M9 9l3-3 3 3" stroke="var(--pink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.5 14c0 1.93 1.57 3 3.5 3s3.5-1.07 3.5-3c0-1.7-1.4-2.5-3.5-2.5S8.5 12.3 8.5 14z" stroke="var(--purple)" stroke-width="1.8" fill="none"/>
+                        <path d="M15 8.5c0 0 1.5-.5 1.5-2" stroke="var(--pink)" stroke-width="1.6" stroke-linecap="round"/>
+                    </svg>
+                </div>
                 <div>
                     <h3>الصرف يطير والمبيعات واقفة</h3>
                     <p>تدفع آلاف على سناب وإنستقرام وجوجل كل شهر، وتكلفة استحواذ العميل مرتفعة والمردود ما يغطي صرفك. نوقّف النزيف ونركّز الميزانية على من عنده نية شراء حقيقية.</p>
                 </div>
             </div>
         </div>
+
         <div class="pain-card rv">
             <div class="pain-card-inner">
-                <span class="ic" aria-hidden="true">📉</span>
+                <!-- أيقونة زيارات بدون تحويل -->
+                <div class="ic-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 17l4-4 4 2 4-5 4 3" stroke="var(--pink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 17l4-4 4 2 4-5 4 3" stroke="var(--purple)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 0" opacity="0.3"/>
+                        <!-- سهم هابط -->
+                        <path d="M19 12l2 5h-4" fill="none" stroke="var(--pink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="2" y="4" width="4" height="14" rx="1" fill="rgba(209,80,162,0.15)"/>
+                        <rect x="8" y="7" width="4" height="11" rx="1" fill="rgba(209,80,162,0.15)"/>
+                        <rect x="14" y="10" width="4" height="8" rx="1" fill="rgba(209,80,162,0.12)"/>
+                    </svg>
+                </div>
                 <div>
                     <h3>زيارات كثيرة وطلبات ما تجي</h3>
                     <p>المشكلة مو في عدد الكليكات، المشكلة في جودة الزيارة ووين تروح بعدها. نشتغل على الاستهداف والرسالة وصفحة المنتج حتى الزائر يتحول لعميل يدفع.</p>
                 </div>
             </div>
         </div>
+
         <div class="pain-card rv">
             <div class="pain-card-inner">
-                <span class="ic" aria-hidden="true">📊</span>
+                <!-- أيقونة تقارير غير مفهومة / بيانات ضبابية -->
+                <div class="ic-wrap" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="3" y="3" width="18" height="18" rx="3" stroke="var(--purple)" stroke-width="1.8" fill="rgba(209,80,162,0.08)"/>
+                        <path d="M7 8h10M7 12h7M7 16h4" stroke="var(--pink)" stroke-width="1.7" stroke-linecap="round"/>
+                        <!-- علامة استفهام -->
+                        <circle cx="18" cy="17" r="4" fill="var(--purple)"/>
+                        <path d="M18 13.5c0 0 0 1.2-1 1.5-.7.2-1 .7-1 1.3" stroke="#fff" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+                        <circle cx="18" cy="17.5" r="0.5" fill="#fff"/>
+                    </svg>
+                </div>
                 <div>
                     <h3>ما تعرف وين راح كل ريال</h3>
                     <p>الوكالة السابقة تبعثك تقارير ملونة ما تفهم منها شيء. أنت تبغى تعرف وش طلع من كل ريال صرفته — ROAS واضح وCAC محسوب وقرارات مبنية على بيانات حقيقية.</p>
@@ -491,7 +566,6 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     <p class="sub">قصص حقيقية من أصحاب متاجر إلكترونية في السعودية — شافوا فرق في ROAS وتكلفة الاستحواذ والمبيعات بعد شغلهم مع روّج.برو.</p>
 
     <div class="t-grid">
-        <!-- FIX: h4 → p.t-card-name لإصلاح ترتيب العناوين (heading order) -->
         <div class="t-card rv">
             <div class="t-card-date">يناير 2025</div>
             <div class="t-card-stars" aria-label="5 نجوم">★★★★★</div>
@@ -729,7 +803,6 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 </main>
 
 <!-- ══════════ FOOTER ══════════ -->
-<!-- FIX heading order: h4 → h3 في الفوتر -->
 <footer role="contentinfo">
     <div class="ft-wrap">
         <div class="ft-about">
@@ -834,14 +907,12 @@ header{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     setInterval(function(){p[c].classList.remove('lit');c=(c+1)%p.length;p[c].classList.add('lit');},1000);
 })();
 
-/* ─ FAQ — FIX forced reflow: اقرأ scrollHeight قبل ما تعدل DOM ─ */
+/* ─ FAQ ─ */
 document.querySelectorAll('.faq-q').forEach(function(q){
     q.addEventListener('click',function(){
         var row=q.parentElement;
         var wasOpen=row.classList.contains('open');
-        /* اقرأ الأبعاد أولاً قبل أي تعديل (يمنع forced reflow) */
         var targetHeight=wasOpen?0:row.querySelector('.faq-a').scrollHeight;
-        /* بعدين اعمل التعديلات */
         document.querySelectorAll('.faq-row').forEach(function(r){
             r.classList.remove('open');
             r.querySelector('.faq-a').style.maxHeight=null;
@@ -908,11 +979,21 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     });
 });
 
-/* ─ Scroll reveal ─ */
+/* ─ FIX 4: Scroll reveal - passive observer, GPU only, بدون will-change دائم ─ */
 (function(){
     var obs=new IntersectionObserver(function(es){
-        es.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('in');},i*65);obs.unobserve(e.target);}});
-    },{threshold:0.07});
+        es.forEach(function(e,i){
+            if(e.isIntersecting){
+                var el=e.target;
+                setTimeout(function(){
+                    el.classList.add('in');
+                    /* إزالة will-change بعد انتهاء الأنيميشن توفير ذاكرة */
+                    setTimeout(function(){el.style.willChange='auto';},700);
+                },i*55);
+                obs.unobserve(el);
+            }
+        });
+    },{threshold:0.06,rootMargin:'0px 0px -20px 0px'});
     document.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
 })();
 
@@ -921,13 +1002,16 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
     var bar=document.querySelector('.sticky-bar'),sec=document.getElementById('apply');
     if(!bar||!sec)return;
     var obs=new IntersectionObserver(function(es){
-        es.forEach(function(e){bar.style.opacity=e.isIntersecting?'0':'1';bar.style.pointerEvents=e.isIntersecting?'none':'all';});
+        es.forEach(function(e){
+            bar.style.opacity=e.isIntersecting?'0':'1';
+            bar.style.pointerEvents=e.isIntersecting?'none':'all';
+        });
     },{threshold:0.35});
     obs.observe(sec);
 })();
 </script>
 
-<!-- تحميل سكريبتات التتبع بعد تحميل الصفحة كاملاً -->
+<!-- تحميل سكريبتات التتبع بعد تحميل الصفحة -->
 <script>
 window.addEventListener('load',function(){
     (function(w,d,s,l,i){var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TGG7PCLH');
