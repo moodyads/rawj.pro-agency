@@ -238,6 +238,7 @@
     </script>
 
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="policies.css">
 </head>
 
 <body itemscope itemtype="https://schema.org/WebPage">
@@ -745,6 +746,22 @@
 </main>
 
 <!-- ══════════ FOOTER ══════════ -->
+<section class="egypt-offer" data-eg-only hidden aria-labelledby="egypt-offer-title">
+    <div class="egypt-offer-inner">
+        <div>
+            <p class="offer-label">خدماتنا في مصر</p>
+            <h2 id="egypt-offer-title">إدارة الحملات الإعلانية لمدة شهر</h2>
+            <p>إدارة حملات متجرك الإعلانية، مع تحديد الحسابات ونطاق العمل وموعد البدء قبل التعاقد.</p>
+            <p>السعر لأتعاب الإدارة فقط، ولا يشمل ميزانية الإنفاق على منصات الإعلان. دون تجديد تلقائي.</p>
+        </div>
+        <div class="egypt-offer-action">
+            <p class="offer-price"><bdi>10,000</bdi> <span>جنيه مصري</span></p>
+            <p>لمدة شهر واحد</p>
+            <a class="btn-p" href="/checkout.html">مراجعة الطلب</a>
+            <p class="offer-availability">الدفع الإلكتروني غير متاح حاليًا</p>
+        </div>
+    </div>
+</section>
 <footer role="contentinfo" aria-label="تذييل الصفحة">
     <div class="ft-wrap">
         <div class="ft-about">
@@ -754,6 +771,10 @@
                 </a>
             </div>
             <p>نساعد أصحاب المتاجر الإلكترونية في السعودية يرفعون مبيعاتهم ويوقفون الهدر الإعلاني — شغل مبني على البيانات والنتائج لا على الكلام والوعود.</p>
+            <address class="ft-contact">
+                <a href="mailto:info@rawj.pro" dir="ltr">info@rawj.pro</a>
+                <a href="tel:+966583024943" dir="ltr">+966 58 302 4943</a>
+            </address>
             <div class="ft-payment">
                 <p class="ft-section-lbl">خيارات دفع مرنة تناسب أعمالك</p>
                 <div class="ft-pay-icons">
@@ -780,6 +801,11 @@
                 <li><a href="#services">خدماتنا</a></li>
                 <li><a href="#faq">الأسئلة الشائعة</a></li>
                 <li><a href="#apply">احجز استشارة مجانية</a></li>
+                <li><a href="/privacy.html">سياسة الخصوصية</a></li>
+                <li><a href="/refund.html">سياسة الإلغاء والاسترداد</a></li>
+                <li><a href="/shipping.html">سياسة الشحن وتسليم الخدمات</a></li>
+                <li><a href="/contact.html">تواصل معنا</a></li>
+                <li data-eg-only hidden><a href="/checkout.html">مراجعة طلب خدمة في مصر</a></li>
             </ul>
         </nav>
 
@@ -1004,5 +1030,6 @@ window.addEventListener('load', function(){
 }, {once: true});
 </script>
 
+<script src="/egypt.js" defer></script>
 </body>
 </html>

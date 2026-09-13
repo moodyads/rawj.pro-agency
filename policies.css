@@ -1,0 +1,45 @@
+[hidden] { display: none !important; }
+.egypt-offer { padding: 48px 5%; background: #f4f7f6; border-block: 1px solid #dce4e0; }
+.egypt-offer-inner { max-width: 1100px; margin: auto; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 36px; align-items: center; }
+.egypt-offer h2 { font-size: 26px; line-height: 1.5; margin: 8px 0 16px; }
+.egypt-offer p { margin: 8px 0; }
+.offer-label { color: #39604f; font-weight: 700; }
+.egypt-offer-action { text-align: center; }
+.offer-price { font-size: 36px; font-weight: 800; color: #172b24; }
+.offer-price span { font-size: 18px; }
+.egypt-offer .btn-p { margin: 14px 0; border-radius: 8px; }
+.offer-availability { font-size: 14px; color: #545d59; }
+.policy-page { min-height: 100vh; display: flex; flex-direction: column; }
+.policy-header { position: static; gap: 24px; }
+.policy-header img { width: 110px; height: 64px; object-fit: contain; }
+.policy-header a, .policy-content a { color: #792259; text-decoration: underline; text-underline-offset: 4px; }
+.policy-content { width: min(100% - 40px, 860px); margin: 48px auto 64px; flex: 1; overflow-wrap: anywhere; }
+.policy-content h1 { font-size: 32px; line-height: 1.5; margin-bottom: 12px; }
+.policy-content h2 { font-size: 22px; margin: 30px 0 10px; }
+.policy-content p { margin: 14px 0; color: #3c4350; }
+.policy-content .policy-date { color: #616674; font-size: 14px; margin-bottom: 28px; }
+.policy-footer { padding: 28px max(20px, 5%); background: var(--darker); }
+.policy-footer nav { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.policy-footer a { color: #fff; }
+.policy-footer p { margin-top: 20px; color: #c5d0dc; }
+.contact-details { border-block: 1px solid var(--border); padding-bottom: 28px; }
+.contact-details a[dir] { display: inline-block; }
+.order-summary { border-block: 1px solid var(--border); padding-bottom: 24px; }
+.order-summary dl { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr); gap: 16px; }
+.order-summary dt { font-weight: 700; }
+.order-summary dd { margin: 0; }
+.order-notice { padding: 16px; background: #fff5db; border-inline-start: 3px solid #aa7600; }
+.policy-content button:disabled { background: #eaecef; color: #535966; box-shadow: none; cursor: not-allowed; transform: none; border-radius: 8px; }
+.ft-contact { display: flex; gap: 8px 20px; flex-wrap: wrap; margin: 20px 0; font-style: normal; }
+.ft-contact a { color: #e1e6ec; text-decoration: underline; overflow-wrap: anywhere; }
+.policy-header a:focus-visible, .policy-content a:focus-visible, .policy-footer a:focus-visible { outline: 3px solid #168c70; outline-offset: 5px; }
+@media (max-width: 600px) {
+  .egypt-offer-inner { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .egypt-offer h2 { font-size: 23px; }
+  .policy-content { margin-top: 28px; }
+  .policy-content h1 { font-size: 26px; }
+  .policy-content h2 { font-size: 20px; }
+  .order-summary dl { grid-template-columns: 1fr; gap: 6px; }
+  .order-summary dd { margin-bottom: 16px; }
+  .policy-footer nav { align-items: flex-start; flex-direction: column; }
+}

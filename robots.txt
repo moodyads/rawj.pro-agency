@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rawj.pro/sitemap.xml
+Sitemap: https://agency.rawj.pro/sitemap.xml
