@@ -21,9 +21,12 @@
 .policy-footer { padding: 28px max(20px, 5%); background: var(--darker); }
 .policy-footer nav { display: flex; flex-wrap: wrap; gap: 12px 24px; }
 .policy-footer a { color: #fff; }
+.policy-footer a[dir="ltr"] { display: inline-block; white-space: nowrap; }
 .policy-footer p { margin-top: 20px; color: #c5d0dc; }
 .contact-details { border-block: 1px solid var(--border); padding-bottom: 28px; }
 .contact-details a[dir] { display: inline-block; }
+.contact-details address, .business-details { font-style: normal; }
+.business-details { display: grid; gap: 8px; padding: 20px 0; }
 .order-summary { border-block: 1px solid var(--border); padding-bottom: 24px; }
 .order-summary dl { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr); gap: 16px; }
 .order-summary dt { font-weight: 700; }
