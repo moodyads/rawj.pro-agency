@@ -31,6 +31,9 @@
 .order-summary dl { display: grid; grid-template-columns: minmax(140px, 1fr) minmax(0, 2fr); gap: 16px; }
 .order-summary dt { font-weight: 700; }
 .order-summary dd { margin: 0; }
+.policy-consent { display: flex; align-items: flex-start; gap: 10px; margin: 22px 0 14px; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: #f8f8fb; }
+.policy-consent input { width: 18px; height: 18px; margin-top: 3px; flex: 0 0 auto; accent-color: var(--purple); }
+.policy-consent label { margin: 0; line-height: 1.8; }
 .order-notice { padding: 16px; background: #fff5db; border-inline-start: 3px solid #aa7600; }
 .policy-content button:disabled { background: #eaecef; color: #535966; box-shadow: none; cursor: not-allowed; transform: none; border-radius: 8px; }
 .ft-contact { display: flex; gap: 8px 20px; flex-wrap: wrap; margin: 20px 0; font-style: normal; }
