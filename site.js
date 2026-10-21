@@ -63,4 +63,68 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
+
+  document.querySelectorAll('.checkout-form').forEach(function (form) {
+    var submitted = false;
+    var frame = document.getElementById(form.getAttribute('data-frame'));
+    var success = form.querySelector('.form-success');
+    var submitButton = form.querySelector('.checkout-submit');
+    var originalButtonText = submitButton ? submitButton.textContent : '';
+
+    function setFieldState(field, valid) {
+      var wrapper = field.closest('.checkout-field');
+      var error = wrapper ? wrapper.querySelector('.field-error') : null;
+      field.setAttribute('aria-invalid', String(!valid));
+      if (error) error.style.display = valid ? 'none' : 'block';
+      return valid;
+    }
+
+    form.addEventListener('submit', function (event) {
+      var firstName = form.querySelector('[data-checkout-first-name]');
+      var lastName = form.querySelector('[data-checkout-last-name]');
+      var email = form.querySelector('[data-checkout-email]');
+      var phone = form.querySelector('[data-checkout-phone]');
+      var consent = form.querySelector('#policy-consent');
+      var consentError = form.querySelector('.consent-error');
+      var digits = phone.value.replace(/\D/g, '');
+      var valid = true;
+
+      if (success) success.style.display = 'none';
+      valid = setFieldState(firstName, firstName.value.trim().length >= 2) && valid;
+      valid = setFieldState(lastName, lastName.value.trim().length >= 2) && valid;
+      valid = setFieldState(email, email.value.trim() !== '' && email.validity.valid) && valid;
+      valid = setFieldState(phone, digits.length >= 8 && digits.length <= 15) && valid;
+
+      if (consentError) consentError.style.display = consent.checked ? 'none' : 'block';
+      consent.setAttribute('aria-invalid', String(!consent.checked));
+      valid = consent.checked && valid;
+
+      if (!valid) {
+        event.preventDefault();
+        var firstInvalid = form.querySelector('[aria-invalid="true"]');
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      submitted = true;
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'جارٍ تأكيد الطلب...';
+      }
+    });
+
+    if (frame) {
+      frame.addEventListener('load', function () {
+        if (!submitted) return;
+        form.reset();
+        form.querySelectorAll('[aria-invalid]').forEach(function (field) { field.removeAttribute('aria-invalid'); });
+        if (success) success.style.display = 'block';
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = originalButtonText;
+        }
+        submitted = false;
+      });
+    }
+  });
 });

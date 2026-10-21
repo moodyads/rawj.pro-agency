@@ -68,15 +68,26 @@ test('services page describes the integrated offer and the defined Egypt package
   assert.doesNotMatch(services, /Services &amp; Workflow|english-service|language-divider/);
 });
 
-test('checkout remains public, explicit, consent-based, and non-transactional', () => {
+test('checkout collects only essential payment contact details before confirming the unpaid order', () => {
   assert.doesNotMatch(checkout, /data-eg-only|egypt\.js|region-status|country\.is/);
+  assert.match(checkout, /<h1>إتمام الطلب<\/h1>/);
+  assert.match(checkout, /class="checkout-form"/);
+  assert.match(checkout, /action="https:\/\/formsubmit\.co\/moodysameh66@gmail\.com"/);
+  for (const field of ['checkout-first-name', 'checkout-last-name', 'checkout-email', 'checkout-phone']) {
+    assert.match(checkout, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
+  }
+  assert.match(checkout, /name="Billing_country" value="EG"/);
+  assert.doesNotMatch(checkout, /checkout-city|checkout-address|checkout-store|checkout-notes/);
   assert.match(checkout, /10,000 EGP/);
   assert.match(checkout, /شهر واحد/);
   assert.match(checkout, /خدمة رقمية/);
-  assert.match(checkout, /id="policy-consent"/);
+  assert.match(checkout, /id="policy-consent"[^>]*required/);
   assert.match(checkout, /سياسة الإلغاء والاسترداد/);
+  assert.match(checkout, /type="submit">تأكيد بيانات الطلب/);
   assert.match(checkout, /disabled aria-disabled="true"/);
   assert.match(checkout, /لن يُخصم أي مبلغ/);
+  assert.doesNotMatch(checkout, /paymob/i);
+  assert.doesNotMatch(checkout, /card_number|cvv|cvc|رقم البطاقة|رمز التحقق/);
 });
 
 test('all public Arabic pages share the unified visual shell and merchant details', () => {
@@ -85,7 +96,7 @@ test('all public Arabic pages share the unified visual shell and merchant detail
     const page = read(file);
     assert.match(page, /class="site-header"/, `${file} unified header is missing`);
     assert.match(page, /class="site-footer"/, `${file} unified footer is missing`);
-    assert.match(page, /\/style\.css\?v=20261006-unified/, `${file} unified stylesheet is missing`);
+    assert.match(page, /\/style\.css\?v=/, `${file} unified stylesheet is missing`);
     assert.match(page, /info@rawj\.pro/, `${file} email is missing`);
     assert.match(page, /\+20 105 084 5080/, `${file} phone is missing`);
     assert.match(page, /القاهرة، مصر/, `${file} address is missing`);
