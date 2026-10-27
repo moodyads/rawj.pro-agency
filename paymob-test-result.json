@@ -4,7 +4,7 @@
   "amount": 200,
   "currency": "USD",
   "integrationId": 4840897,
-  "httpStatus": null,
-  "testedAt": null,
-  "message": "The Paymob test has not been run yet."
+  "httpStatus": 417,
+  "testedAt": "2026-10-27T08:29:30.754Z",
+  "message": "Paymob API error (417): You are passing an incorrect combination of Integration ID + Currency . \n      You can check the details of Integration ID from Merchant Dashboard under Developers → Payment Integrations Tab"
 }
