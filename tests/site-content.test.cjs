@@ -8,6 +8,7 @@ const read = (file) => readFileSync(join(root, file), 'utf8');
 const index = read('index.html');
 const english = read('en/index.html');
 const checkout = read('checkout.html');
+const checkoutUsd = read('checkout-usd.html');
 const services = read('services.html');
 const serviceNamesAr = ['استراتيجية النمو الرقمي', 'الإعلانات المدفوعة', 'المحتوى والسوشيال', 'تهيئة محركات البحث SEO', 'تحسين المتجر والتحويل', 'التحليلات والتقارير'];
 const serviceNamesEn = ['Digital growth strategy', 'Paid advertising', 'Content and social', 'Search engine optimization', 'Store and conversion optimization', 'Analytics and reporting'];
@@ -68,33 +69,38 @@ test('services page describes the integrated offer and the defined Egypt package
   assert.doesNotMatch(services, /Services &amp; Workflow|english-service|language-divider/);
 });
 
-test('checkout presents the Paymob USD test without exposing payment credentials', () => {
+test('Egypt checkout keeps its original EGP offer', () => {
   assert.doesNotMatch(checkout, /data-eg-only|egypt\.js|region-status|country\.is/);
-  assert.match(checkout, /<h1>اختبار الدفع الدولي<\/h1>/);
+  assert.match(checkout, /<h1>إتمام الطلب<\/h1>/);
   assert.match(checkout, /class="checkout-form"/);
   assert.match(checkout, /action="https:\/\/formsubmit\.co\/moodysameh66@gmail\.com"/);
   for (const field of ['checkout-first-name', 'checkout-last-name', 'checkout-email', 'checkout-phone']) {
     assert.match(checkout, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
   }
-  assert.doesNotMatch(checkout, /checkout-city|checkout-address|checkout-store|checkout-notes/);
-  assert.match(checkout, /200 USD/);
-  assert.match(checkout, /وضع الاختبار/);
-  assert.match(checkout, /checkout-test\.js/);
-  assert.match(checkout, /id="paymob-test-status"/);
-  assert.match(checkout, /id="test-error"/);
-  assert.match(checkout, /شهر واحد/);
-  assert.match(checkout, /خدمة رقمية/);
-  assert.match(checkout, /id="policy-consent"[^>]*required/);
-  assert.match(checkout, /سياسة الإلغاء والاسترداد/);
-  assert.match(checkout, /type="submit">تأكيد بيانات الاختبار/);
-  assert.match(checkout, /لن يتم خصم أي أموال حقيقية/);
-  assert.doesNotMatch(checkout, /egy_(?:sk|pk)_test_[A-Za-z0-9]+/);
-  assert.doesNotMatch(checkout, /PAYMOB_TEST_(?:SECRET|PUBLIC)_KEY/);
-  assert.doesNotMatch(checkout, /card_number|cvv|cvc|رقم البطاقة|رمز التحقق/);
+  assert.match(checkout, /10,000 EGP/);
+  assert.match(checkout, /name="Billing_country" value="EG"/);
+  assert.doesNotMatch(checkout, /200 USD|checkout-usd\.js/);
+});
+
+test('USD checkout requests Paymob only after customer submission', () => {
+  assert.match(checkoutUsd, /<h1>إتمام الطلب<\/h1>/);
+  assert.match(checkoutUsd, /200 USD/);
+  assert.match(checkoutUsd, /id="checkout-usd-form"/);
+  assert.match(checkoutUsd, /data-paymob-endpoint="https:\/\/agency-paymob-usd\.moodyads\.workers\.dev\/intention"/);
+  for (const field of ['checkout-usd-first-name', 'checkout-usd-last-name', 'checkout-usd-email', 'checkout-usd-phone']) {
+    assert.match(checkoutUsd, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
+  }
+  assert.match(checkoutUsd, /شهر واحد/);
+  assert.match(checkoutUsd, /id="policy-consent"[^>]*required/);
+  assert.match(checkoutUsd, /type="submit">الانتقال للدفع/);
+  assert.match(checkoutUsd, /id="checkout-usd-error"[^>]*hidden/);
+  assert.doesNotMatch(checkoutUsd, /اختبار تفعيل Paymob|نتيجة آخر محاولة|Paymob API error/);
+  assert.doesNotMatch(checkoutUsd, /egy_(?:sk|pk)_test_[A-Za-z0-9]+|PAYMOB_(?:SECRET|PUBLIC)_KEY/);
+  assert.doesNotMatch(checkoutUsd, /card_number|cvv|cvc|رقم البطاقة|رمز التحقق/);
 });
 
 test('all public Arabic pages share the unified visual shell and merchant details', () => {
-  const pages = ['about.html', 'contact.html', 'services.html', 'terms.html', 'privacy.html', 'refund.html', 'shipping.html', 'checkout.html'];
+  const pages = ['about.html', 'contact.html', 'services.html', 'terms.html', 'privacy.html', 'refund.html', 'shipping.html', 'checkout.html', 'checkout-usd.html'];
   for (const file of pages) {
     const page = read(file);
     assert.match(page, /class="site-header"/, `${file} unified header is missing`);

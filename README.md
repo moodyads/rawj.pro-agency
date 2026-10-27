@@ -1,13 +1,14 @@
 # rawj.pro
 
-## Paymob international currency test
+## Paymob USD checkout
 
-The public checkout page never contains Paymob secret credentials. A manually
-triggered GitHub Actions workflow sends a test-mode intention request and
-publishes only the sanitized response to `paymob-test-result.json`.
+`checkout-usd.html` calls the dedicated `agency-paymob-usd` Cloudflare Worker
+only after the customer submits the form. The Worker creates a fresh Paymob
+intention and either returns the checkout URL or forwards Paymob's live error.
+No Paymob secret is shipped to the browser or stored in this repository.
 
-Required repository secrets:
+Required Worker secrets:
 
-- `PAYMOB_TEST_SECRET_KEY`
-- `PAYMOB_TEST_PUBLIC_KEY`
-- `PAYMOB_TEST_INTEGRATION_ID`
+- `PAYMOB_SECRET_KEY`
+- `PAYMOB_PUBLIC_KEY`
+- `PAYMOB_INTEGRATION_ID`

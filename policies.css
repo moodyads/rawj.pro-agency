@@ -9,24 +9,11 @@
 .contact-card a[dir="ltr"], .business-card a[dir="ltr"] { display: inline-block; direction: ltr; }
 .checkout-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 18px; }
 .checkout-actions .btn { border: 0; }
-.test-mode-banner { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 28px; padding: 16px 18px; border: 1px solid #e5bd56; border-radius: 8px; background: #fff8df; color: #664700; }
-.test-mode-banner strong { flex: none; }
-.paymob-test-result { margin-top: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: #f7faf9; }
-.paymob-test-result-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.paymob-test-result-head h2 { margin: 0; font-size: 1.05rem; }
-.paymob-test-result-head .btn { flex: none; padding: 8px 14px; }
-.paymob-test-result > p { margin: 14px 0 0; font-size: .86rem; }
-.paymob-test-result dl { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 10px 12px; margin-top: 16px; font-size: .8rem; }
-.paymob-test-result dt { color: var(--navy); font-weight: 800; }
-.paymob-test-result dd { margin: 0; min-width: 0; }
-.paymob-test-result code { display: block; max-width: 100%; padding: 12px; border: 1px solid #efb7b2; border-radius: 6px; background: #fff1f0; color: #8f2018; white-space: pre-wrap; overflow-wrap: anywhere; text-align: left; font-size: .75rem; line-height: 1.55; }
-.paymob-test-result.is-success code { border-color: #a8d7c5; background: #edf9f4; color: #176047; }
+.checkout-payment-error { margin-top: 20px; padding: 18px; border: 1px solid #efb7b2; border-radius: 10px; background: #fff1f0; color: #8f2018; }
+.checkout-payment-error strong { display: block; margin-bottom: 10px; }
+.checkout-payment-error code { display: block; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .82rem; line-height: 1.65; text-align: left; }
 
 @media (max-width: 760px) {
   .checkout-actions { align-items: stretch; flex-direction: column; }
   .checkout-actions .btn { width: 100%; }
-  .test-mode-banner, .paymob-test-result-head { align-items: flex-start; flex-direction: column; }
-  .paymob-test-result-head .btn { width: 100%; }
-  .paymob-test-result dl { grid-template-columns: 1fr; gap: 5px; }
-  .paymob-test-result dd { margin-bottom: 10px; }
 }
