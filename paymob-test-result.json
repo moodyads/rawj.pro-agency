@@ -1,0 +1,10 @@
+{
+  "ok": false,
+  "mode": "Test",
+  "amount": 200,
+  "currency": "USD",
+  "integrationId": 4840897,
+  "httpStatus": null,
+  "testedAt": null,
+  "message": "The Paymob test has not been run yet."
+}

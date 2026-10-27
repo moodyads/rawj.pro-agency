@@ -68,25 +68,28 @@ test('services page describes the integrated offer and the defined Egypt package
   assert.doesNotMatch(services, /Services &amp; Workflow|english-service|language-divider/);
 });
 
-test('checkout collects only essential payment contact details before confirming the unpaid order', () => {
+test('checkout presents the Paymob USD test without exposing payment credentials', () => {
   assert.doesNotMatch(checkout, /data-eg-only|egypt\.js|region-status|country\.is/);
-  assert.match(checkout, /<h1>إتمام الطلب<\/h1>/);
+  assert.match(checkout, /<h1>اختبار الدفع الدولي<\/h1>/);
   assert.match(checkout, /class="checkout-form"/);
   assert.match(checkout, /action="https:\/\/formsubmit\.co\/moodysameh66@gmail\.com"/);
   for (const field of ['checkout-first-name', 'checkout-last-name', 'checkout-email', 'checkout-phone']) {
     assert.match(checkout, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
   }
-  assert.match(checkout, /name="Billing_country" value="EG"/);
   assert.doesNotMatch(checkout, /checkout-city|checkout-address|checkout-store|checkout-notes/);
-  assert.match(checkout, /10,000 EGP/);
+  assert.match(checkout, /200 USD/);
+  assert.match(checkout, /وضع الاختبار/);
+  assert.match(checkout, /checkout-test\.js/);
+  assert.match(checkout, /id="paymob-test-status"/);
+  assert.match(checkout, /id="test-error"/);
   assert.match(checkout, /شهر واحد/);
   assert.match(checkout, /خدمة رقمية/);
   assert.match(checkout, /id="policy-consent"[^>]*required/);
   assert.match(checkout, /سياسة الإلغاء والاسترداد/);
-  assert.match(checkout, /type="submit">تأكيد بيانات الطلب/);
-  assert.match(checkout, /disabled aria-disabled="true"/);
-  assert.match(checkout, /لن يُخصم أي مبلغ/);
-  assert.doesNotMatch(checkout, /paymob/i);
+  assert.match(checkout, /type="submit">تأكيد بيانات الاختبار/);
+  assert.match(checkout, /لن يتم خصم أي أموال حقيقية/);
+  assert.doesNotMatch(checkout, /egy_(?:sk|pk)_test_[A-Za-z0-9]+/);
+  assert.doesNotMatch(checkout, /PAYMOB_TEST_(?:SECRET|PUBLIC)_KEY/);
   assert.doesNotMatch(checkout, /card_number|cvv|cvc|رقم البطاقة|رمز التحقق/);
 });
 
