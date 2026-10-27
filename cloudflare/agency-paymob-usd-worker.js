@@ -1,4 +1,9 @@
 const ALLOWED_ORIGIN = 'https://agency.rawj.pro';
+const OFFERS = {
+  '/intention': { code: 'usd', amount: 20000, currency: 'USD', country: 'US' },
+  '/intention/usd': { code: 'usd', amount: 20000, currency: 'USD', country: 'US' },
+  '/intention/egp': { code: 'egp', amount: 1000000, currency: 'EGP', country: 'EG' }
+};
 
 function json(body, status, origin) {
   return new Response(JSON.stringify(body), {
@@ -32,13 +37,14 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
     const url = new URL(request.url);
+    const offer = OFFERS[url.pathname];
 
     if (request.method === 'OPTIONS') {
       if (origin !== ALLOWED_ORIGIN) return new Response(null, { status: 403 });
       return new Response(null, { status: 204, headers: corsHeaders(origin) });
     }
 
-    if (request.method !== 'POST' || url.pathname !== '/intention') {
+    if (request.method !== 'POST' || !offer) {
       return json({ error: 'Not found' }, 404, ALLOWED_ORIGIN);
     }
     if (origin !== ALLOWED_ORIGIN) {
@@ -60,12 +66,12 @@ export default {
       return json({ error: 'Invalid customer details' }, 400, origin);
     }
 
-    const amount = 20000;
+    const amount = offer.amount;
     const body = {
       amount,
-      currency: 'USD',
+      currency: offer.currency,
       payment_methods: [Number(env.PAYMOB_INTEGRATION_ID)],
-      special_reference: `agency-usd-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`,
+      special_reference: `agency-${offer.code}-${Date.now()}-${crypto.randomUUID().slice(0, 8)}`,
       expiration: 3600,
       redirection_url: 'https://agency.rawj.pro/checkout-usd.html',
       items: [{
@@ -84,7 +90,7 @@ export default {
         street: 'NA',
         building: 'NA',
         city: 'NA',
-        country: 'US',
+        country: offer.country,
         state: 'NA',
         postal_code: 'NA'
       }

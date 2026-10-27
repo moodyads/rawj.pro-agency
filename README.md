@@ -1,11 +1,12 @@
 # rawj.pro
 
-## Paymob USD checkout
+## Paymob checkout
 
-`checkout-usd.html` calls the dedicated `agency-paymob-usd` Cloudflare Worker
-only after the customer submits the form. The Worker creates a fresh Paymob
-intention and either returns the checkout URL or forwards Paymob's live error.
-No Paymob secret is shipped to the browser or stored in this repository.
+`checkout.html` and `checkout-usd.html` call the dedicated
+`agency-paymob-usd` Cloudflare Worker only after the customer submits a form.
+The Worker creates a fresh EGP or USD Paymob intention and either returns the
+checkout URL or forwards Paymob's live error. No Paymob secret is shipped to
+the browser or stored in this repository.
 
 Required Worker secrets:
 

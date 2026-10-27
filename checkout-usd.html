@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="/style.css?v=20261027-checkout-usd">
   <link rel="stylesheet" href="/policies.css?v=20261027-checkout-usd">
   <script defer src="/site.js?v=20261021-checkout"></script>
-  <script defer src="/checkout-usd.js?v=20261027"></script>
+  <script defer src="/checkout-paymob.js?v=20261027"></script>
 </head>
 <body class="policy-page">
   <a class="skip" href="#main">انتقل إلى المحتوى</a>
@@ -45,7 +45,7 @@
 
       <div class="checkout-layout">
         <section class="checkout-form-card" aria-labelledby="customer-details-title">
-          <form class="checkout-form" id="checkout-usd-form" data-paymob-endpoint="https://agency-paymob-usd.moodyads.workers.dev/intention" novalidate>
+          <form class="checkout-form" id="checkout-usd-form" data-paymob-endpoint="https://agency-paymob-usd.moodyads.workers.dev/intention/usd" novalidate>
             <fieldset>
               <legend id="customer-details-title">بيانات العميل</legend>
               <p class="checkout-section-copy">نطلب فقط البيانات الأساسية اللازمة لإنشاء عملية الدفع والتواصل بشأن الطلب.</p>
@@ -81,9 +81,9 @@
 
             <button class="btn btn-primary checkout-submit" type="submit">الانتقال للدفع</button>
             <p class="form-note checkout-form-note">ستنتقل إلى بوابة الدفع لإدخال بيانات البطاقة وإتمام العملية بأمان.</p>
-            <div id="checkout-usd-error" class="checkout-payment-error" role="alert" hidden>
+            <div class="checkout-payment-error" role="alert" hidden>
               <strong>تعذر الانتقال إلى الدفع</strong>
-              <code id="checkout-usd-error-message" dir="ltr"></code>
+              <code dir="ltr"></code>
             </div>
           </form>
         </section>

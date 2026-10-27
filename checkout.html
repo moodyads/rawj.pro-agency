@@ -11,9 +11,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap">
   <link rel="icon" type="image/webp" href="/smalll.webp">
   <meta name="theme-color" content="#15162d">
-  <link rel="stylesheet" href="/style.css?v=20261021-checkout">
-  <link rel="stylesheet" href="/policies.css?v=20261006-unified">
+  <link rel="stylesheet" href="/style.css?v=20261027-paymob">
+  <link rel="stylesheet" href="/policies.css?v=20261027-paymob">
   <script defer src="/site.js?v=20261021-checkout"></script>
+  <script defer src="/checkout-paymob.js?v=20261027"></script>
 </head>
 <body class="policy-page">
   <a class="skip" href="#main">انتقل إلى المحتوى</a>
@@ -43,53 +44,46 @@
 
       <div class="checkout-layout">
         <section class="checkout-form-card" aria-labelledby="customer-details-title">
-          <iframe name="checkout-frame" id="checkout-frame" hidden title="نتيجة تأكيد الطلب"></iframe>
-          <form class="checkout-form" action="https://formsubmit.co/moodysameh66@gmail.com" method="post" target="checkout-frame" data-frame="checkout-frame" novalidate>
-            <input type="hidden" name="_cc" value="yasminfaried18@gmail.com">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="طلب باقة إدارة الحملات - روّج.برو">
-            <input type="hidden" name="_next" value="https://agency.rawj.pro/checkout.html?order=received">
-            <input type="hidden" name="Service" value="إدارة الحملات الإعلانية لمدة شهر">
-            <input type="hidden" name="Order_total" value="10,000 EGP">
-            <input type="hidden" name="Payment_status" value="غير مدفوع - الدفع الإلكتروني غير مفعّل">
-            <input type="hidden" name="Billing_country" value="EG">
-
+          <form class="checkout-form" id="checkout-egp-form" data-paymob-endpoint="https://agency-paymob-usd.moodyads.workers.dev/intention/egp" novalidate>
             <fieldset>
               <legend id="customer-details-title">بيانات العميل</legend>
               <p class="checkout-section-copy">نطلب فقط البيانات الأساسية التي تحتاجها بوابة الدفع لإنشاء العملية والتواصل بشأن الطلب.</p>
               <div class="checkout-form-grid">
                 <div class="checkout-field">
                   <label for="checkout-first-name">الاسم الأول *</label>
-                  <input id="checkout-first-name" name="First_name" type="text" autocomplete="given-name" placeholder="الاسم الأول" data-checkout-first-name required>
+                  <input id="checkout-first-name" name="firstName" type="text" autocomplete="given-name" placeholder="الاسم الأول" minlength="2" data-checkout-first-name required>
                   <p class="field-error">أدخل الاسم الأول.</p>
                 </div>
                 <div class="checkout-field">
                   <label for="checkout-last-name">اسم العائلة *</label>
-                  <input id="checkout-last-name" name="Last_name" type="text" autocomplete="family-name" placeholder="اسم العائلة" data-checkout-last-name required>
+                  <input id="checkout-last-name" name="lastName" type="text" autocomplete="family-name" placeholder="اسم العائلة" minlength="2" data-checkout-last-name required>
                   <p class="field-error">أدخل اسم العائلة.</p>
                 </div>
                 <div class="checkout-field">
                   <label for="checkout-email">البريد الإلكتروني *</label>
-                  <input id="checkout-email" name="Customer_email" type="email" autocomplete="email" inputmode="email" placeholder="name@example.com" data-checkout-email required>
+                  <input id="checkout-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="name@example.com" data-checkout-email required>
                   <p class="field-error">أدخل بريدًا إلكترونيًا صحيحًا.</p>
                 </div>
                 <div class="checkout-field">
                   <label for="checkout-phone">رقم الهاتف مع كود الدولة *</label>
-                  <input id="checkout-phone" name="Customer_phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="+20 10 0000 0000" data-checkout-phone required>
+                  <input id="checkout-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" dir="ltr" placeholder="+20 10 0000 0000" pattern="[+0-9() -]{8,24}" data-checkout-phone required>
                   <p class="field-error">أدخل رقم هاتف صحيحًا من 8 إلى 15 رقمًا.</p>
                 </div>
               </div>
             </fieldset>
 
             <div class="policy-consent checkout-consent">
-              <input type="checkbox" id="policy-consent" name="Policy_acceptance" value="أوافق" required>
+              <input type="checkbox" id="policy-consent" name="policyAcceptance" value="accepted" required>
               <label for="policy-consent">قرأت وأوافق على <a href="/terms.html" target="_blank" rel="noopener">الشروط والأحكام</a> و<a href="/refund.html" target="_blank" rel="noopener">سياسة الإلغاء والاسترداد</a> و<a href="/shipping.html" target="_blank" rel="noopener">سياسة تسليم الخدمات</a>، وأؤكد صحة البيانات أعلاه.</label>
             </div>
             <p class="consent-error field-error">يجب الموافقة على الشروط والسياسات قبل تأكيد الطلب.</p>
 
-            <button class="btn btn-primary checkout-submit" type="submit">تأكيد بيانات الطلب</button>
-            <p class="form-note checkout-form-note">تأكيد الطلب لا يخصم أي مبلغ. سيتواصل معك فريقنا لتأكيد النطاق والخطوة التالية.</p>
-            <div class="form-success" role="status">تم استلام بيانات طلبك بنجاح. لم يتم خصم أي مبلغ، وسيتواصل معك فريقنا لتأكيد الخطوة التالية.</div>
+            <button class="btn btn-primary checkout-submit" type="submit">الانتقال للدفع</button>
+            <p class="form-note checkout-form-note">ستنتقل إلى بوابة الدفع لإدخال بيانات البطاقة وإتمام العملية بأمان.</p>
+            <div class="checkout-payment-error" role="alert" hidden>
+              <strong>تعذر الانتقال إلى الدفع</strong>
+              <code dir="ltr"></code>
+            </div>
           </form>
         </section>
 
@@ -109,9 +103,7 @@
             <a class="checkout-details-link" href="/services.html">تفاصيل الخدمة وطريقة التنفيذ</a>
           </div>
 
-          <div class="order-notice"><strong>حالة الدفع</strong><br>الدفع الإلكتروني غير مفعّل حاليًا. لن تُدخل بيانات بطاقة ولن يُخصم أي مبلغ من هذه الصفحة.</div>
-          <button class="btn disabled-button checkout-pay-button" type="button" disabled aria-disabled="true">الدفع الإلكتروني — غير متاح حاليًا</button>
-          <p class="checkout-privacy-note">تُستخدم بياناتك لمعالجة هذا الطلب فقط وفق <a href="/privacy.html">سياسة الخصوصية</a>. بيانات البطاقة ستُدخل لدى بوابة الدفع عند تفعيلها.</p>
+          <p class="checkout-privacy-note">تُستخدم بياناتك لمعالجة هذا الطلب فقط وفق <a href="/privacy.html">سياسة الخصوصية</a>. بيانات البطاقة تُدخل مباشرة لدى بوابة الدفع.</p>
         </aside>
       </div>
     </div>
@@ -119,7 +111,7 @@
 
   <footer class="site-footer">
     <div class="container footer-grid"><div class="footer-brand"><img src="/logo.webp" alt="وكالة روّج.برو" width="118" height="48"><p>وكالة تسويق رقمي متخصصة في التسويق الإلكتروني للمتاجر الإلكترونية، نقدم خدمات وحلول تسويقية متكاملة تساعد على زيادة المبيعات، تحسين الأداء، وتعزيز نمو العلامات التجارية عبر القنوات الرقمية.</p><address class="footer-contact"><a href="mailto:info@rawj.pro">info@rawj.pro</a><a href="tel:+201050845080" dir="ltr">+20 105 084 5080</a><span>المعادي، القاهرة، مصر</span></address></div><div><h3>روّج.برو</h3><ul class="footer-links"><li><a href="/services.html">الخدمات</a></li><li><a href="/about.html">من نحن</a></li><li><a href="/contact.html">تواصل معنا</a></li><li><a href="/en/" lang="en">English</a></li></ul></div><div><h3>معلومات وسياسات</h3><ul class="footer-links"><li><a href="/terms.html">الشروط والأحكام</a></li><li><a href="/privacy.html">سياسة الخصوصية</a></li><li><a href="/refund.html">الإلغاء والاسترداد</a></li><li><a href="/shipping.html">تسليم الخدمات</a></li><li><a href="/checkout.html">إتمام الطلب</a></li></ul></div></div>
-    <div class="container footer-bottom"><span>جميع الحقوق محفوظة © 2026 — وكالة روّج.برو</span><span>لا يتم تحصيل مدفوعات إلكترونية عبر الموقع حاليًا.</span></div>
+    <div class="container footer-bottom"><span>جميع الحقوق محفوظة © 2026 — وكالة روّج.برو</span><span>خيارات دفع آمنة عبر بوابة الدفع.</span></div>
   </footer>
 </body>
 </html>

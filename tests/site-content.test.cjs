@@ -9,6 +9,7 @@ const index = read('index.html');
 const english = read('en/index.html');
 const checkout = read('checkout.html');
 const checkoutUsd = read('checkout-usd.html');
+const paymobWorker = read('cloudflare/agency-paymob-usd-worker.js');
 const services = read('services.html');
 const serviceNamesAr = ['استراتيجية النمو الرقمي', 'الإعلانات المدفوعة', 'المحتوى والسوشيال', 'تهيئة محركات البحث SEO', 'تحسين المتجر والتحويل', 'التحليلات والتقارير'];
 const serviceNamesEn = ['Digital growth strategy', 'Paid advertising', 'Content and social', 'Search engine optimization', 'Store and conversion optimization', 'Analytics and reporting'];
@@ -69,34 +70,44 @@ test('services page describes the integrated offer and the defined Egypt package
   assert.doesNotMatch(services, /Services &amp; Workflow|english-service|language-divider/);
 });
 
-test('Egypt checkout keeps its original EGP offer', () => {
+test('Egypt checkout creates a live EGP Paymob intention after submission', () => {
   assert.doesNotMatch(checkout, /data-eg-only|egypt\.js|region-status|country\.is/);
   assert.match(checkout, /<h1>إتمام الطلب<\/h1>/);
-  assert.match(checkout, /class="checkout-form"/);
-  assert.match(checkout, /action="https:\/\/formsubmit\.co\/moodysameh66@gmail\.com"/);
+  assert.match(checkout, /id="checkout-egp-form"/);
+  assert.match(checkout, /data-paymob-endpoint="https:\/\/agency-paymob-usd\.moodyads\.workers\.dev\/intention\/egp"/);
   for (const field of ['checkout-first-name', 'checkout-last-name', 'checkout-email', 'checkout-phone']) {
     assert.match(checkout, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
   }
   assert.match(checkout, /10,000 EGP/);
-  assert.match(checkout, /name="Billing_country" value="EG"/);
-  assert.doesNotMatch(checkout, /200 USD|checkout-usd\.js/);
+  assert.match(checkout, /type="submit">الانتقال للدفع/);
+  assert.match(checkout, /class="checkout-payment-error"[^>]*hidden/);
+  assert.match(checkout, /checkout-paymob\.js/);
+  assert.doesNotMatch(checkout, /200 USD|formsubmit\.co|غير متاح حاليًا|checkout-usd\.js/);
 });
 
 test('USD checkout requests Paymob only after customer submission', () => {
   assert.match(checkoutUsd, /<h1>إتمام الطلب<\/h1>/);
   assert.match(checkoutUsd, /200 USD/);
   assert.match(checkoutUsd, /id="checkout-usd-form"/);
-  assert.match(checkoutUsd, /data-paymob-endpoint="https:\/\/agency-paymob-usd\.moodyads\.workers\.dev\/intention"/);
+  assert.match(checkoutUsd, /data-paymob-endpoint="https:\/\/agency-paymob-usd\.moodyads\.workers\.dev\/intention\/usd"/);
   for (const field of ['checkout-usd-first-name', 'checkout-usd-last-name', 'checkout-usd-email', 'checkout-usd-phone']) {
     assert.match(checkoutUsd, new RegExp(`id="${field}"[^>]*required`), `${field} must be required`);
   }
   assert.match(checkoutUsd, /شهر واحد/);
   assert.match(checkoutUsd, /id="policy-consent"[^>]*required/);
   assert.match(checkoutUsd, /type="submit">الانتقال للدفع/);
-  assert.match(checkoutUsd, /id="checkout-usd-error"[^>]*hidden/);
+  assert.match(checkoutUsd, /class="checkout-payment-error"[^>]*hidden/);
+  assert.match(checkoutUsd, /checkout-paymob\.js/);
   assert.doesNotMatch(checkoutUsd, /اختبار تفعيل Paymob|نتيجة آخر محاولة|Paymob API error/);
   assert.doesNotMatch(checkoutUsd, /egy_(?:sk|pk)_test_[A-Za-z0-9]+|PAYMOB_(?:SECRET|PUBLIC)_KEY/);
   assert.doesNotMatch(checkoutUsd, /card_number|cvv|cvc|رقم البطاقة|رمز التحقق/);
+});
+
+test('Paymob worker keeps the two offers distinct', () => {
+  assert.match(paymobWorker, /'\/intention\/egp': \{ code: 'egp', amount: 1000000, currency: 'EGP'/);
+  assert.match(paymobWorker, /'\/intention\/usd': \{ code: 'usd', amount: 20000, currency: 'USD'/);
+  assert.match(paymobWorker, /payment_methods: \[Number\(env\.PAYMOB_INTEGRATION_ID\)\]/);
+  assert.match(paymobWorker, /accept\.paymob\.com\/v1\/intention\//);
 });
 
 test('all public Arabic pages share the unified visual shell and merchant details', () => {
@@ -121,7 +132,7 @@ test('Saudi-only proof, geo blocking, and fabricated testimonials cannot return'
 });
 
 test('required local assets and generated photos are valid', () => {
-  for (const file of ['style.css', 'policies.css', 'site.js', 'logo.webp', 'smalll.webp', 'img2.webp', 'img4.webp', 'visa.webp', 'master.webp']) {
+  for (const file of ['style.css', 'policies.css', 'site.js', 'checkout-paymob.js', 'logo.webp', 'smalll.webp', 'img2.webp', 'img4.webp', 'visa.webp', 'master.webp']) {
     assert.ok(existsSync(join(root, file)), `${file} is missing`);
   }
   for (const file of ['img2.webp', 'img4.webp']) {
