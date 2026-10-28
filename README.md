@@ -13,3 +13,15 @@ Required Worker secrets:
 - `PAYMOB_SECRET_KEY`
 - `PAYMOB_PUBLIC_KEY`
 - `PAYMOB_INTEGRATION_ID`
+- `PAYMOB_HMAC_SECRET`
+
+Each intention explicitly configures Paymob's callbacks:
+
+- Transaction Processed Callback (POST):
+  `https://agency-paymob-usd.moodyads.workers.dev/callbacks/transaction-processed`
+- Transaction Response Callback (GET):
+  `https://agency-paymob-usd.moodyads.workers.dev/callbacks/transaction-response`
+
+Both callback types are verified with Paymob's HMAC SHA-512 signature. The
+processed callback is the source of truth; the response callback only renders
+a customer-facing payment result page.

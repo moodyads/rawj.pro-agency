@@ -108,6 +108,19 @@ test('Paymob worker keeps the two offers distinct', () => {
   assert.match(paymobWorker, /'\/intention\/usd': \{ code: 'usd', amount: 20000, currency: 'USD'/);
   assert.match(paymobWorker, /payment_methods: \[Number\(env\.PAYMOB_INTEGRATION_ID\)\]/);
   assert.match(paymobWorker, /accept\.paymob\.com\/v1\/intention\//);
+  assert.match(paymobWorker, /notification_url: TRANSACTION_PROCESSED_URL/);
+  assert.match(paymobWorker, /redirection_url: TRANSACTION_RESPONSE_URL/);
+});
+
+test('Paymob callbacks are public, HMAC-verified, and customer friendly', () => {
+  assert.match(paymobWorker, /\/callbacks\/transaction-processed/);
+  assert.match(paymobWorker, /\/callbacks\/transaction-response/);
+  assert.match(paymobWorker, /PAYMOB_HMAC_SECRET/);
+  assert.match(paymobWorker, /SHA-512/);
+  assert.match(paymobWorker, /Invalid HMAC signature/);
+  assert.match(paymobWorker, /تم الدفع بنجاح/);
+  assert.match(paymobWorker, /لم تكتمل عملية الدفع/);
+  assert.match(paymobWorker, /تعذر التحقق من النتيجة/);
 });
 
 test('all public Arabic pages share the unified visual shell and merchant details', () => {
