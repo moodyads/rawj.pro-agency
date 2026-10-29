@@ -155,3 +155,13 @@ test('required local assets and generated photos are valid', () => {
     assert.ok(bytes.length > 20_000, `${file} appears unexpectedly small`);
   }
 });
+
+test('agency company navigation connects the three activities without changing checkout', () => {
+  const script = read('site.js');
+  assert.match(script, /RAWJ Agency — أحد أنشطة RAWJ/);
+  assert.match(script, /https:\/\/rawj\.pro\/en/);
+  assert.match(script, /\/software/);
+  assert.match(script, /\/consulting/);
+  assert.match(script, /\/products/);
+  assert.match(script, /!footer\.querySelector\('\.company-network'\)/);
+});

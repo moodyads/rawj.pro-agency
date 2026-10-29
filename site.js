@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var footer = document.querySelector('.site-footer');
+  if (footer && !footer.querySelector('.company-network')) {
+    var english = document.documentElement.lang === 'en';
+    var network = document.createElement('nav');
+    network.className = 'container company-network';
+    network.setAttribute('aria-label', english ? 'RAWJ company' : 'شركة RAWJ');
+    var label = document.createElement('span');
+    label.textContent = english ? 'RAWJ Agency — part of RAWJ' : 'RAWJ Agency — أحد أنشطة RAWJ';
+    network.appendChild(label);
+    var prefix = english ? 'https://rawj.pro/en' : 'https://rawj.pro';
+    [['/', 'RAWJ'], ['/software', 'RAWJ Software'], ['/consulting', 'RAWJ Consulting'], ['/products', english ? 'Products' : 'المنتجات']].forEach(function (item) {
+      var link = document.createElement('a');
+      link.href = prefix + item[0];
+      link.textContent = item[1];
+      network.appendChild(link);
+    });
+    footer.insertBefore(network, footer.firstChild);
+  }
   var toggle = document.querySelector('[data-menu-toggle]');
   var nav = document.getElementById('site-nav');
   if (toggle && nav) {
