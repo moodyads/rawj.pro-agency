@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (footer && !footer.querySelector('.company-network')) {
     var english = document.documentElement.lang === 'en';
     var network = document.createElement('nav');
-    network.className = 'container company-network';
+    network.className = 'company-network rawj-footer-links';
     network.setAttribute('aria-label', english ? 'RAWJ company' : 'شركة RAWJ');
     var label = document.createElement('span');
     label.textContent = english ? 'RAWJ Agency — part of RAWJ' : 'RAWJ Agency — أحد أنشطة RAWJ';
@@ -15,20 +15,36 @@ document.addEventListener('DOMContentLoaded', function () {
       link.textContent = item[1];
       network.appendChild(link);
     });
-    footer.insertBefore(network, footer.firstChild);
+    var footerInner = footer.querySelector('.rawj-footer-inner');
+    if (footerInner) footerInner.insertBefore(network, footerInner.querySelector('.rawj-footer-bottom'));
+    else footer.insertBefore(network, footer.firstChild);
   }
   var toggle = document.querySelector('[data-menu-toggle]');
   var nav = document.getElementById('site-nav');
   if (toggle && nav) {
+    function closeMenu(restoreFocus) {
+      nav.classList.remove('open', 'is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) toggle.focus();
+    }
     toggle.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
+      var open = nav.classList.toggle('is-open');
+      nav.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', String(open));
     });
     nav.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+        closeMenu(false);
       });
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && nav.classList.contains('is-open')) closeMenu(true);
+    });
+    document.addEventListener('click', function (event) {
+      if (!nav.contains(event.target) && !toggle.contains(event.target)) closeMenu(false);
+    });
+    window.matchMedia('(min-width: 1081px)').addEventListener('change', function (event) {
+      if (event.matches) closeMenu(false);
     });
   }
 

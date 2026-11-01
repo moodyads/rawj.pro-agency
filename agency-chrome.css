@@ -1,0 +1,31 @@
+/* Agency adapters only. Shared dimensions and typography live in brand-system.css. */
+.rawj-site-header { backdrop-filter:none; }
+.rawj-brand .brand-viewport { width:41px; height:44px; aspect-ratio:auto; }
+.rawj-brand .brand-viewport > img {
+  position:absolute; width:645.091%; height:auto; max-width:none;
+  left:-193.818%; top:-45.763%; padding:0; margin:0; border-radius:0;
+}
+.rawj-site-footer { padding-bottom:0; }
+.rawj-site-footer .rawj-footer-top { grid-template-columns:minmax(0,1.5fr) minmax(0,.75fr) minmax(0,.75fr); gap:60px; }
+.rawj-site-footer .footer-brand > .rawj-brand { margin-bottom:0; }
+.rawj-site-footer .footer-brand > p { max-width:500px; font-size:16px; }
+.rawj-site-footer .footer-contact { margin-top:18px; font-size:15px; }
+.rawj-site-footer .footer-contact a { color:#e1e6e4; }
+.rawj-site-footer h3 { color:#fff; font-size:16px; margin-bottom:15px; }
+.rawj-site-footer .footer-links a { display:inline-flex; align-items:center; min-height:36px; color:#e1e6e4; font-size:15px; }
+.rawj-site-footer .footer-links a:hover { color:#f1b5ef; }
+.rawj-site-footer .footer-payment > p { color:#b8c6c0; }
+.rawj-site-footer .payment-icons img { opacity:1; background:#fff; border-radius:3px; }
+.rawj-site-footer .company-network { margin:0; padding-block:22px; }
+.rawj-site-footer .company-network > span { color:#b8c6c0; }
+.rawj-site-footer .footer-bottom { margin:0; padding-block:24px; border-color:#ffffff29; }
+.rawj-site-footer .footer-bottom a { color:#c5d1cb; }
+@media(max-width:1080px) {
+  .rawj-site-footer .rawj-footer-top { grid-template-columns:repeat(2,minmax(0,1fr)); gap:30px 60px; }
+  .rawj-site-footer .footer-brand { grid-column:1/-1; }
+}
+@media(max-width:680px) {
+  .rawj-header-actions > .rawj-header-cta:only-child { display:inline-flex; }
+  .rawj-site-footer .rawj-footer-top { grid-template-columns:1fr; gap:30px; }
+  .rawj-site-footer .footer-brand { grid-column:auto; }
+}

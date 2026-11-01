@@ -1,0 +1,91 @@
+/* RAWJ public design contract. Keep identical in the corporate and Agency repositories. */
+.rawj-frame,.rawj-site-header,.rawj-site-footer {
+ --rawj-accent:#08704f; --rawj-ink:#1d2030; --rawj-muted:#5f6372; --rawj-line:#e3e6ea;
+ --rawj-navy:#15162d; --rawj-deep:#0a0b16; --rawj-content:1180px; --rawj-gutter:32px;
+ --rawj-radius:12px; --rawj-card-radius:18px; --rawj-header-height:88px; --rawj-control-height:48px;
+ --rawj-shadow:0 8px 24px rgba(21,22,45,.06); --rawj-font-ar:"Tajawal",Arial,sans-serif;
+}
+[data-rawj-brand="agency"] { --rawj-accent:#9814a8; }
+[data-rawj-brand="software"] { --rawj-accent:#0755ad; }
+[data-rawj-brand="consulting"] { --rawj-accent:#80511e; }
+.rawj-frame[lang="ar"],html[lang="ar"] body.rawj-frame { font-family:var(--rawj-font-ar); font-weight:500; }
+.rawj-frame { --co-accent:var(--rawj-accent); }
+.rawj-site-header *, .rawj-site-footer * { box-sizing:border-box; }
+.rawj-site-header { position:sticky; top:0; z-index:60; width:100%; background:#fff; color:var(--rawj-ink); border-bottom:1px solid var(--rawj-line); font-family:var(--rawj-font-ar); }
+.rawj-header-inner,.rawj-footer-inner { width:100%; max-width:calc(var(--rawj-content) + var(--rawj-gutter)*2); padding-inline:var(--rawj-gutter); margin-inline:auto; }
+.rawj-header-inner { display:flex; align-items:center; gap:28px; min-height:calc(var(--rawj-header-height) - 1px); position:relative; }
+.rawj-site-header a,.rawj-site-footer a { text-decoration:none; }
+.rawj-site-header .rawj-brand,.rawj-site-footer .rawj-brand { display:inline-flex; align-items:center; gap:10px; flex:none; direction:ltr; text-decoration:none; }
+.rawj-site-header .rawj-brand .rawj-brand-mark,.rawj-site-footer .rawj-brand .rawj-brand-mark { display:block; width:41px; height:44px; overflow:hidden; flex:none; }
+.rawj-brand-mark > img,.rawj-brand-mark > span:not(.co-logo) > img { display:block; width:100%; height:100%; object-fit:contain; }
+.rawj-site-header .rawj-brand .rawj-brand-copy,.rawj-site-footer .rawj-brand .rawj-brand-copy { display:flex; flex-direction:column; gap:3px; min-width:0; }
+.rawj-brand-name { font:700 26px/1.1 Arial,sans-serif; color:var(--rawj-ink); letter-spacing:0; }
+.rawj-brand-label { color:var(--rawj-accent); font:600 11px/1.2 Arial,sans-serif; letter-spacing:0; }
+.rawj-site-header .rawj-main-nav > .rawj-mobile-cta { display:none; }
+.rawj-main-nav { display:flex; align-items:center; gap:24px; margin-inline-start:auto; }
+.rawj-site-header .rawj-main-nav > a { color:var(--rawj-ink); display:inline-flex; align-items:center; gap:5px; min-height:44px; padding-block:8px; font:700 15px/1.5 var(--rawj-font-ar); white-space:nowrap; }
+.rawj-site-header .rawj-main-nav > a:hover,.rawj-site-header .rawj-main-nav > a[aria-current="page"] { color:var(--rawj-accent); }
+.rawj-header-actions { display:flex; align-items:center; gap:18px; flex:none; }
+.rawj-site-header .rawj-language { display:inline-flex; align-items:center; justify-content:center; gap:7px; min-width:44px; min-height:44px; color:var(--rawj-ink); font:600 13px/1 Arial,sans-serif; direction:ltr; }
+.rawj-language svg { width:17px; height:17px; flex:none; }
+.rawj-site-header .rawj-header-cta,.rawj-site-footer .rawj-footer-cta {
+ display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:var(--rawj-control-height); padding:12px 20px;
+ border:1px solid var(--rawj-accent); border-radius:var(--rawj-radius); color:#fff; background:var(--rawj-accent);
+ font:700 15px/1.5 var(--rawj-font-ar); text-align:center; white-space:nowrap; box-shadow:none;
+ transition:filter .15s ease,transform .15s ease;
+}
+.rawj-header-cta > svg,.rawj-footer-cta > svg { width:17px; height:17px; flex:none; }
+.rawj-header-cta:hover,.rawj-footer-cta:hover { filter:brightness(.92); transform:translateY(-1px); }
+.rawj-menu-toggle { display:none; place-items:center; width:44px; height:44px; padding:10px; border:1px solid var(--rawj-line); border-radius:10px; background:#fff; color:var(--rawj-ink); cursor:pointer; }
+.rawj-menu-toggle svg { width:22px; height:22px; }
+.rawj-site-header a:focus-visible,.rawj-site-header button:focus-visible,.rawj-site-footer a:focus-visible,.rawj-site-footer summary:focus-visible { outline:3px solid var(--rawj-accent); outline-offset:5px; }
+.rawj-site-footer { background:var(--rawj-deep); color:#e1e6e4; border-top:1px solid #ffffff20; padding-top:48px; font-family:var(--rawj-font-ar); }
+.rawj-footer-top { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:60px; padding-bottom:32px; align-items:start; }
+.rawj-site-footer .rawj-brand-name { color:#fff; }
+.rawj-site-footer .rawj-brand-label { color:#c5d1cb; }
+.rawj-site-footer .rawj-brand-mark { background:#fff; border-radius:5px; }
+.rawj-site-footer .rawj-footer-description { margin:20px 0 0; max-width:580px; color:#b8c6c0; font-size:16px; line-height:1.9; font-weight:500; }
+.rawj-footer-contact { display:flex; flex-direction:column; align-items:start; gap:16px; }
+.rawj-footer-contact > a,.rawj-footer-contact > span { display:inline-flex; align-items:center; gap:10px; min-height:44px; color:#e1e6e4; font-size:15px; line-height:1.8; }
+.rawj-footer-contact > a[href^="mailto:"] { font-family:Arial,sans-serif; direction:ltr; }
+.rawj-footer-whatsapp { padding:10px 16px; border:1px solid #61756b; border-radius:var(--rawj-radius); }
+.rawj-footer-whatsapp:hover { background:#ffffff0c; }
+.rawj-footer-links { display:flex; flex-wrap:wrap; align-items:center; gap:12px 28px; border-top:1px solid #ffffff29; padding-block:22px; }
+.rawj-site-footer .rawj-footer-links > a { display:inline-flex; align-items:center; min-height:36px; color:#e1e6e4; font-size:15px; font-weight:600; line-height:1.7; }
+.rawj-footer-bottom { display:flex; flex-wrap:wrap; align-items:start; justify-content:space-between; gap:20px; padding-block:24px; border-top:1px solid #ffffff29; color:#b7c8bf; font-size:13px; line-height:1.9; }
+.rawj-footer-legal { display:flex; flex-wrap:wrap; align-items:start; gap:12px 24px; }
+.rawj-site-footer .rawj-footer-legal a { color:#c5d1cb; font-size:13px; }
+.rawj-footer-legal details { position:relative; }
+.rawj-footer-legal summary { cursor:pointer; }
+.rawj-footer-legal details > div { display:grid; gap:12px; margin-top:14px; }
+.rawj-site-footer .rawj-footer-brand-context { color:#b8c6c0; margin-top:10px; font-size:13px; }
+.rawj-frame.co .lp-btn,.rawj-frame.co .rh-button { min-height:48px; padding:12px 20px; border-radius:12px; font:700 15px/1.6 var(--rawj-font-ar); }
+.rawj-frame.co .co-form input:not([type="checkbox"]),.rawj-frame.co .co-form textarea,.rawj-frame.co .co-form select { border-radius:8px; font-family:inherit; }
+.rawj-frame.co .co-form button { border-radius:12px; min-height:48px; font-family:inherit; }
+.rawj-frame.co .co-section { scroll-margin-top:108px; }
+@media(min-width:1081px) { .rawj-main-nav > a { font-size:15px; } }
+@media(max-width:1180px) and (min-width:1081px) { .rawj-header-inner { gap:20px; } .rawj-main-nav { gap:18px; } .rawj-header-actions { gap:12px; } }
+@media(max-width:1080px) {
+ .rawj-menu-toggle { display:grid; }
+ .rawj-header-actions { margin-inline-start:auto; }
+ .rawj-main-nav { display:none; position:absolute; top:100%; inset-inline:0; margin:0; padding:20px 32px; border-bottom:1px solid var(--rawj-line); background:#fff; box-shadow:var(--rawj-shadow); }
+ .rawj-main-nav.is-open { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 24px; }
+ .rawj-main-nav > a { white-space:normal; }
+}
+@media(max-width:680px) {
+ .rawj-frame,.rawj-site-header,.rawj-site-footer { --rawj-gutter:20px; --rawj-header-height:76px; }
+ .rawj-header-inner { gap:14px; }
+ .rawj-header-actions { gap:12px; }
+ .rawj-site-header .rawj-header-cta { display:none; }
+ .rawj-main-nav { padding:18px 20px; }
+ .rawj-site-header .rawj-main-nav.is-open > .rawj-mobile-cta {
+  display:inline-flex; grid-column:1/-1; justify-content:center; min-height:48px;
+  padding:12px 20px; border:1px solid var(--rawj-accent); border-radius:12px;
+  color:#fff; background:var(--rawj-accent); font-weight:700;
+ }
+ .rawj-site-footer { padding-top:36px; }
+ .rawj-footer-top { grid-template-columns:1fr; gap:30px; }
+ .rawj-footer-links { gap:10px 22px; }
+ .rawj-footer-bottom { flex-direction:column; gap:18px; }
+}
+@media(prefers-reduced-motion:reduce) { .rawj-site-header *,.rawj-site-footer * { transition:none !important; } }

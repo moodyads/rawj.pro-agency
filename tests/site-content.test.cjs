@@ -127,8 +127,8 @@ test('all public Arabic pages share the unified visual shell and merchant detail
   const pages = ['about.html', 'contact.html', 'services.html', 'terms.html', 'privacy.html', 'refund.html', 'shipping.html', 'checkout.html', 'checkout-usd.html'];
   for (const file of pages) {
     const page = read(file);
-    assert.match(page, /class="site-header"/, `${file} unified header is missing`);
-    assert.match(page, /class="site-footer"/, `${file} unified footer is missing`);
+    assert.match(page, /class="site-header rawj-site-header"/, `${file} unified header is missing`);
+    assert.match(page, /class="site-footer rawj-site-footer"/, `${file} unified footer is missing`);
     assert.match(page, /\/style\.css\?v=/, `${file} unified stylesheet is missing`);
     assert.match(page, /info@rawj\.pro/, `${file} email is missing`);
     assert.match(page, /\+20 105 084 5080/, `${file} phone is missing`);
