@@ -60,9 +60,9 @@ test('structured data is valid and exposes all six service groups', () => {
   assert.equal(business.alternateName, 'RAWJ PRO');
   assert.equal(business.taxID, '781-604-451');
   assert.equal(business.identifier.value, '3399');
-  assert.equal(business.address.streetAddress, '900 شارع الكنيسة، قسم المنيا');
-  assert.equal(business.address.addressLocality, 'مدينة المنيا');
-  assert.equal(business.address.addressRegion, 'محافظة المنيا');
+  assert.equal(business.address.streetAddress, '90 شارع الكنيسة، قسم المنيا');
+  assert.equal(business.address.addressLocality, 'المنيا');
+  assert.equal(business.address.addressRegion, 'المنيا');
   assert.equal(business.address.addressCountry, 'EG');
   assert.equal(business.contactPoint.email, 'info@rawj.pro');
   assert.equal(business.hasOfferCatalog.itemListElement.length, 6);
@@ -138,7 +138,7 @@ test('all public Arabic pages share the unified visual shell and merchant detail
     assert.match(page, /\/style\.css\?v=/, `${file} unified stylesheet is missing`);
     assert.match(page, /info@rawj\.pro/, `${file} email is missing`);
     assert.match(page, /\+20 105 084 5080/, `${file} phone is missing`);
-    assert.match(page, /900 شارع الكنيسة، قسم المنيا، مدينة المنيا، محافظة المنيا، مصر/, `${file} registered address is missing`);
+    assert.match(page, /90 شارع الكنيسة، قسم المنيا، المنيا، مصر/, `${file} registered address is missing`);
     assert.match(page, /رقم التسجيل الضريبي:[^<]*<bdi>781-604-451<\/bdi>/, `${file} tax registration is missing`);
     assert.match(page, /رقم السجل التجاري:[^<]*<bdi>3399<\/bdi>/, `${file} commercial registration is missing`);
     assert.doesNotMatch(page, /policy-header|policy-footer/, `${file} uses the old visual shell`);
@@ -150,6 +150,7 @@ test('founder personal data and obsolete business details are absent from public
   const content = publicPages.map(read).join('\n');
   assert.doesNotMatch(content, /moodysameh|yasminfaried|مودي|سامح|فؤاد|فوّاد/i);
   assert.doesNotMatch(content, /المعادي، القاهرة، مصر|Maadi, Cairo, Egypt/);
+  assert.doesNotMatch(content, /900 شارع الكنيسة|900 Al-Kenisa Street|مدينة المنيا|محافظة المنيا|Minya City|Minya Governorate/);
 });
 
 test('Saudi-only proof, geo blocking, and fabricated testimonials cannot return', () => {
