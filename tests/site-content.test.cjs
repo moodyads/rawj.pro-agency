@@ -179,5 +179,12 @@ test('agency company navigation connects the three activities without changing c
   assert.match(script, /\/software/);
   assert.match(script, /\/consulting/);
   assert.match(script, /\/products/);
+  assert.match(script, /https:\/\/software\.rawj\.pro\//);
+  assert.match(script, /https:\/\/consulting\.rawj\.pro\//);
+  for (const page of [index, english, checkout, checkoutUsd, services, read('contact.html')]) {
+    assert.match(page, /https:\/\/software\.rawj\.pro\//);
+    assert.match(page, /https:\/\/consulting\.rawj\.pro\//);
+    assert.doesNotMatch(page, /https:\/\/rawj\.pro\/(?:en\/)?(?:software|consulting)/);
+  }
   assert.match(script, /!footer\.querySelector\('\.company-network'\)/);
 });

@@ -11,7 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var prefix = english ? 'https://rawj.pro/en' : 'https://rawj.pro';
     [['/', 'RAWJ'], ['/software', 'RAWJ Software'], ['/consulting', 'RAWJ Consulting'], ['/products', english ? 'Products' : 'المنتجات']].forEach(function (item) {
       var link = document.createElement('a');
-      link.href = prefix + item[0];
+      link.href = item[0] === '/software' ? 'https://software.rawj.pro/' + (english ? 'en/' : '')
+        : item[0] === '/consulting' ? 'https://consulting.rawj.pro/' + (english ? 'en/' : '')
+        : prefix + item[0];
       link.textContent = item[1];
       network.appendChild(link);
     });
