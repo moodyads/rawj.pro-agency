@@ -25,4 +25,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy cloudflare/agency-paymob-usd-worker.js --name agency-paymob-usd --compatibility-date 2026-11-15 --keep-vars
+          wranglerVersion: "4.162.0"
+          command: deploy --config cloudflare/wrangler.jsonc --keep-vars

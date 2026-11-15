@@ -330,11 +330,15 @@ async function handleResponseCallback(url, env) {
   });
 }
 
-// Isolate-local fallback. Configure CHECKOUT_RATE_LIMITER for a distributed edge quota.
+// Isolate-local fallback; the configured binding shares quota within each Cloudflare location.
+// Cloudflare rate limits are approximate per location, not a global transaction counter.
 const checkoutWindows = new Map();
 async function allowCheckout(request, env) {
   const ip = request.headers.get('CF-Connecting-IP') || 'anonymous';
-  if (env.CHECKOUT_RATE_LIMITER) return (await env.CHECKOUT_RATE_LIMITER.limit({ key: ip })).success;
+  if (env.CHECKOUT_RATE_LIMITER) {
+    try { return (await env.CHECKOUT_RATE_LIMITER.limit({ key: ip })).success; }
+    catch { return false; } // Fail closed before any provider request.
+  }
   const now = Date.now();
   for (const [key, value] of checkoutWindows) if (value.until <= now) checkoutWindows.delete(key);
   const value = checkoutWindows.get(ip) || { count: 0, until: now + 60000 };
