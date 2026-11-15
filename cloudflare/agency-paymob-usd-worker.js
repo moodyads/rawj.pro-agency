@@ -217,7 +217,7 @@ function escapeHtml(value) {
 }
 
 function paymentResultPage(params, verified) {
-  const success = verified && params.get('success') === 'true' && params.get('pending') !== 'true';
+  const success = verified && params.get('success') === 'true' && params.get('pending') !== 'true' && !['is_refunded', 'is_voided', 'error_occured'].some(key => params.get(key) === 'true') && !(params.get('is_auth') === 'true' && params.get('is_capture') !== 'true');
   const pending = verified && params.get('pending') === 'true';
   const status = !verified ? 'unverified' : success ? 'success' : pending ? 'pending' : 'failed';
   const content = {
@@ -330,6 +330,18 @@ async function handleResponseCallback(url, env) {
   });
 }
 
+// Isolate-local fallback. Configure CHECKOUT_RATE_LIMITER for a distributed edge quota.
+const checkoutWindows = new Map();
+async function allowCheckout(request, env) {
+  const ip = request.headers.get('CF-Connecting-IP') || 'anonymous';
+  if (env.CHECKOUT_RATE_LIMITER) return (await env.CHECKOUT_RATE_LIMITER.limit({ key: ip })).success;
+  const now = Date.now();
+  for (const [key, value] of checkoutWindows) if (value.until <= now) checkoutWindows.delete(key);
+  const value = checkoutWindows.get(ip) || { count: 0, until: now + 60000 };
+  if (value.count >= 10 || (!checkoutWindows.has(ip) && checkoutWindows.size >= 5000)) return false;
+  value.count++; checkoutWindows.set(ip, value); return true;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -358,6 +370,7 @@ export default {
       return json({ error: 'Origin not allowed' }, 403, ALLOWED_ORIGIN);
     }
 
+    if (!(await allowCheckout(request, env))) return json({ error: 'Too many checkout requests; try again later' }, 429, origin);
     if (!checkoutConfigured(env)) {
       return json({ error: 'Checkout is temporarily unavailable' }, 503, origin);
     }
