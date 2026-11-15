@@ -203,3 +203,25 @@ test('untrusted return parameters are HTML-escaped even without a valid HMAC', a
   assert.ok(html.includes('تعذر التحقق من النتيجة'));
   assert.equal(calls.length, 0);
 });
+
+test('edge binding denies exhausted quota before creating a payment intention', async () => {
+  const { worker, calls } = makeWorker();
+  const response = await worker.fetch(request(), { ...env, CHECKOUT_RATE_LIMITER: { limit: async () => ({ success: false }) } });
+  assert.equal(response.status, 429);
+  assert.equal(calls.length, 0);
+});
+
+test('edge limiter failures fail closed without calling Paymob', async () => {
+  const { worker, calls } = makeWorker();
+  const response = await worker.fetch(request(), { ...env, CHECKOUT_RATE_LIMITER: { limit: async () => { throw new Error('test-only-binding-unavailable'); } } });
+  assert.equal(response.status, 429);
+  assert.equal(calls.length, 0);
+});
+
+test('deployment config binds the checkout limiter and preserves the existing Worker', () => {
+  const config = JSON.parse(fs.readFileSync(path.join(__dirname, '../cloudflare/wrangler.jsonc'), 'utf8'));
+  assert.equal(config.name, 'agency-paymob-usd');
+  assert.equal(config.main, 'agency-paymob-usd-worker.js');
+  assert.equal(config.ratelimits[0].name, 'CHECKOUT_RATE_LIMITER');
+  assert.deepEqual(config.ratelimits[0].simple, { limit: 10, period: 60 });
+});

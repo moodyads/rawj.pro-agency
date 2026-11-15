@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "agency-paymob-usd",
+  "main": "agency-paymob-usd-worker.js",
+  "compatibility_date": "2026-11-15",
+  "workers_dev": true,
+  "ratelimits": [
+    {
+      "name": "CHECKOUT_RATE_LIMITER",
+      "namespace_id": "19283746501793",
+      "simple": { "limit": 10, "period": 60 }
+    }
+  ]
+}
