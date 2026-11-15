@@ -2,6 +2,9 @@ const ALLOWED_ORIGIN = 'https://agency.rawj.pro';
 const WORKER_ORIGIN = 'https://agency-paymob-usd.moodyads.workers.dev';
 const TRANSACTION_PROCESSED_URL = `${WORKER_ORIGIN}/callbacks/transaction-processed`;
 const TRANSACTION_RESPONSE_URL = `${WORKER_ORIGIN}/callbacks/transaction-response`;
+const MAX_CHECKOUT_BODY_BYTES = 8 * 1024;
+const MAX_CALLBACK_BODY_BYTES = 256 * 1024;
+const PAYMOB_REQUEST_TIMEOUT_MS = 15_000;
 const OFFERS = {
   '/intention': { code: 'usd', amount: 20000, currency: 'USD', country: 'US' },
   '/intention/usd': { code: 'usd', amount: 20000, currency: 'USD', country: 'US' },
@@ -55,8 +58,69 @@ function corsHeaders(origin) {
   };
 }
 
-function clean(value, maxLength) {
-  return String(value || '').trim().slice(0, maxLength);
+async function readJsonBody(request, maxBytes) {
+  const declaredLength = request.headers.get('Content-Length');
+  if (declaredLength && (!/^\d+$/.test(declaredLength) || Number(declaredLength) > maxBytes)) {
+    return { error: 'Request body is too large', status: 413 };
+  }
+  const reader = request.body?.getReader();
+  if (!reader) return { error: 'Invalid request body', status: 400 };
+  const chunks = [];
+  let size = 0;
+  try {
+    while (true) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      size += chunk.value.byteLength;
+      if (size > maxBytes) {
+        await reader.cancel().catch(() => undefined);
+        return { error: 'Request body is too large', status: 413 };
+      }
+      chunks.push(chunk.value);
+    }
+  } catch {
+    return { error: 'Invalid request body', status: 400 };
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  try {
+    return { value: JSON.parse(new TextDecoder().decode(bytes)) };
+  } catch {
+    return { error: 'Invalid request body', status: 400 };
+  }
+}
+
+function checkoutConfigured(env) {
+  const integrationId = Number(env.PAYMOB_INTEGRATION_ID);
+  return ['PAYMOB_SECRET_KEY', 'PAYMOB_PUBLIC_KEY', 'PAYMOB_HMAC_SECRET'].every(
+    (name) => typeof env[name] === 'string' && env[name].trim().length > 0
+  ) && /^\d+$/.test(String(env.PAYMOB_INTEGRATION_ID ?? ''))
+    && Number.isSafeInteger(integrationId) && integrationId > 0;
+}
+
+function checkoutDetails(input) {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
+  const bounds = { firstName: 80, lastName: 80, email: 160, phone: 30 };
+  for (const [name, maxLength] of Object.entries(bounds)) {
+    if (typeof input[name] !== 'string' || input[name].length > maxLength
+      || /[\u0000-\u001f\u007f]/.test(input[name])) return null;
+  }
+  const firstName = input.firstName.trim();
+  const lastName = input.lastName.trim();
+  const email = input.email.trim();
+  const phone = input.phone.trim();
+  const phoneDigits = phone.replace(/\D/g, '');
+  if (firstName.length < 2 || lastName.length < 2
+    || !/^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(email)
+    || !/^\+?[\d\s().-]+$/.test(phone)
+    || phoneDigits.length < 8 || phoneDigits.length > 15) return null;
+  return { firstName, lastName, email, phone };
 }
 
 function nestedValue(object, path) {
@@ -217,10 +281,10 @@ async function handleProcessedCallback(request, env, url) {
     return json({ error: 'Callback verification is not configured' }, 503, ALLOWED_ORIGIN);
   }
 
-  let payload;
-  try {
-    payload = await request.json();
-  } catch {
+  const parsed = await readJsonBody(request, MAX_CALLBACK_BODY_BYTES);
+  if (parsed.error) return json({ error: parsed.error }, parsed.status, ALLOWED_ORIGIN);
+  const payload = parsed.value;
+  if (!payload || typeof payload !== 'object' || Array.isArray(payload)) {
     return json({ error: 'Invalid callback body' }, 400, ALLOWED_ORIGIN);
   }
 
@@ -294,20 +358,20 @@ export default {
       return json({ error: 'Origin not allowed' }, 403, ALLOWED_ORIGIN);
     }
 
-    let input;
-    try {
-      input = await request.json();
-    } catch {
-      return json({ error: 'Invalid request body' }, 400, origin);
+    if (!checkoutConfigured(env)) {
+      return json({ error: 'Checkout is temporarily unavailable' }, 503, origin);
+    }
+    if ((request.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase() !== 'application/json') {
+      return json({ error: 'Content-Type must be application/json' }, 415, origin);
     }
 
-    const firstName = clean(input.firstName, 80);
-    const lastName = clean(input.lastName, 80);
-    const email = clean(input.email, 160);
-    const phone = clean(input.phone, 30);
-    if (firstName.length < 2 || lastName.length < 2 || !email.includes('@') || phone.replace(/\D/g, '').length < 8) {
+    const parsed = await readJsonBody(request, MAX_CHECKOUT_BODY_BYTES);
+    if (parsed.error) return json({ error: parsed.error }, parsed.status, origin);
+    const details = checkoutDetails(parsed.value);
+    if (!details) {
       return json({ error: 'Invalid customer details' }, 400, origin);
     }
+    const { firstName, lastName, email, phone } = details;
 
     const amount = offer.amount;
     const body = {
@@ -345,6 +409,7 @@ export default {
     try {
       paymobResponse = await fetch('https://accept.paymob.com/v1/intention/', {
         method: 'POST',
+        signal: AbortSignal.timeout(PAYMOB_REQUEST_TIMEOUT_MS),
         headers: {
           Authorization: `Token ${env.PAYMOB_SECRET_KEY}`,
           'Content-Type': 'application/json'
@@ -357,11 +422,11 @@ export default {
     }
 
     if (!paymobResponse.ok) {
-      const detail = paymobPayload.detail ?? paymobPayload.message ?? paymobPayload.error ?? paymobPayload;
-      return json({ paymob: detail }, paymobResponse.status, origin);
+      console.warn(JSON.stringify({ event: 'paymob.intention.failed', status: paymobResponse.status }));
+      return json({ error: 'Unable to create checkout. Please try again later.' }, 502, origin);
     }
 
-    if (!paymobPayload.client_secret) {
+    if (!paymobPayload || typeof paymobPayload.client_secret !== 'string' || !paymobPayload.client_secret) {
       return json({ error: 'Paymob did not return a checkout token' }, 502, origin);
     }
 

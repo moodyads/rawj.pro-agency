@@ -1,1 +1,19 @@
 .wrangler/
+
+# Local environment variants and provider credentials.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*credentials*.json
+*service-account*.json
+
+# Database exports and operational backups (Prisma migration SQL remains tracked).
+*.dump
+*.sql.gz
+*.backup
+*.bak
+backups/
