@@ -16,8 +16,6 @@
 .rawj-site-footer .footer-links a:hover { color:#f1b5ef; }
 .rawj-site-footer .footer-payment > p { color:#b8c6c0; }
 .rawj-site-footer .payment-icons img { opacity:1; background:#fff; border-radius:3px; }
-.rawj-site-footer .company-network { margin:0; padding-block:22px; }
-.rawj-site-footer .company-network > span { color:#b8c6c0; }
 .rawj-site-footer .footer-bottom { margin:0; padding-block:24px; border-color:#ffffff29; }
 .rawj-site-footer .footer-bottom a { color:#c5d1cb; }
 @media(max-width:1080px) {
