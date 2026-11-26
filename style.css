@@ -412,5 +412,3 @@ h1, h2, h3, h4 { color: var(--navy); line-height: 1.35; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
-.company-network { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; padding-block: 24px; margin-bottom: 32px; border-bottom: 1px solid #e7e4eb; font-size: 13px; }
-.company-network span { flex-basis: 100%; color: #555561; }

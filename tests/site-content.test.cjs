@@ -172,19 +172,18 @@ test('required local assets and generated photos are valid', () => {
   }
 });
 
-test('agency company navigation connects the three activities without changing checkout', () => {
-  const script = read('site.js');
-  assert.match(script, /RAWJ Agency — أحد أنشطة RAWJ/);
-  assert.match(script, /https:\/\/rawj\.pro\/en/);
-  assert.match(script, /\/software/);
-  assert.match(script, /\/consulting/);
-  assert.match(script, /\/products/);
-  assert.match(script, /https:\/\/software\.rawj\.pro\//);
-  assert.match(script, /https:\/\/consulting\.rawj\.pro\//);
-  for (const page of [index, english, checkout, checkoutUsd, services, read('contact.html')]) {
-    assert.match(page, /https:\/\/software\.rawj\.pro\//);
-    assert.match(page, /https:\/\/consulting\.rawj\.pro\//);
-    assert.doesNotMatch(page, /https:\/\/rawj\.pro\/(?:en\/)?(?:software|consulting)/);
+test('Agency footer stays independent without cross-sector links or injected navigation', () => {
+  const pages = ['index.html', 'en/index.html', 'about.html', 'contact.html', 'services.html', 'terms.html', 'privacy.html', 'refund.html', 'shipping.html', 'checkout.html', 'checkout-usd.html', '404.html'];
+  for (const file of pages) {
+    const page = read(file);
+    const footer = page.match(/<footer\b[\s\S]*?<\/footer>/)[0];
+    assert.doesNotMatch(footer, /company-network|https:\/\/(?:software\.|consulting\.)?rawj\.pro(?:\/|["'])/, file);
+    assert.match(footer, /mailto:info@rawj\.pro/, file);
+    assert.match(footer, /rawj-site-footer/, file);
+    if (file !== '404.html') {
+      assert.match(footer, /href="\/privacy.html"/, file);
+      assert.match(footer, /href="\/terms.html"/, file);
+    }
   }
-  assert.match(script, /!footer\.querySelector\('\.company-network'\)/);
+  assert.doesNotMatch(read('site.js'), /company-network|software\.rawj|consulting\.rawj/);
 });
